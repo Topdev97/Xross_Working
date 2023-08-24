@@ -1,0 +1,249 @@
+{% load static %}
+{% load compress %}
+
+<!doctype html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8" />
+        <title>            
+            XrossPoint | 
+            {% block title %}
+                Home
+            {% endblock title %}
+        </title>
+
+        <meta name="description" content="{% block description %}{% endblock description %}"/>
+    
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.png' %}" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Icons Css -->
+        <link href="{% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+
+        <!-- App Css-->
+        <link href="{% static 'css/app.min.css' %}" id="app-style" rel="stylesheet" type="text/css" />
+        
+        <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    
+        <link rel="stylesheet" href="{% static 'css/dist/styles.css' %}">   
+
+        {% block css %}
+        {% endblock css %}
+        
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/3.0.7/metisMenu.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            
+        <link href="https://fonts.googleapis.com/css2?family=Mogra&family=Noto+Sans+JP:wght@100&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Mogra&family=Noto+Sans+JP:wght@200&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Mogra&family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Mogra&family=Noto+Sans+JP:wght@400&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Mogra&family=Noto+Sans+JP:wght@500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Mogra&family=Noto+Sans+JP:wght@600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Mogra&family=Noto+Sans+JP:wght@700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Mogra&family=Noto+Sans+JP:wght@800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Mogra&family=Noto+Sans+JP:wght@900&display=swap" rel="stylesheet">
+    
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' />
+
+    </head>
+
+    <body >
+
+    <!-- <body data-layout="horizontal" data-topbar="dark"> -->
+
+        <!-- Begin page -->
+        <div id="layout-wrapper">
+
+            {% include "admin/_navbar.html" %}
+
+
+            <!-- ========== Left Sidebar Start ========== -->
+            <div class="vertical-menu">
+                {% include 'admin/_menu.html' %}
+            </div>
+            <!-- Left Sidebar End -->
+
+
+
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="main-content">
+
+                <div class="page-content">
+                    <div class="px-3">
+
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box sm:flex items-center justify-between">
+                                    <h2 class="text-xl font-black flex items-center space-x-3 mb-3 sm:mb-0 ">
+                                        {% block sub_title %}{% endblock sub_title %}
+                                    </h2>
+
+                                    <div class="page-title-right mb-3 sm:mb-0">
+                                        <nav class="flex" aria-label="Breadcrumb">
+                                            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                                              <li class="inline-flex items-center">
+                                                <a href="/admin" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                                                  <svg aria-hidden="true" class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+                                                </a>
+                                              </li>
+                                              <li>
+                                                <div class="flex items-center">
+                                                  <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                                                  <a href=""  class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white"> {% block breadcrumb %}{% endblock breadcrumb %}</a>
+                                                </div>
+                                              </li>
+                                            </ol>
+                                        </nav>
+                                    </div>
+                                </div>
+                                <div>                                    
+                                    {% if messages %}
+                                        <ul class="messages">
+                                            {% for message in messages %}
+                                                {% if message.tags %}
+                                                    {% if message.tags == 'success' %}
+                                                        <div
+                                                            class="mb-3 hidden w-full items-center rounded-lg bg-success-100 px-6 py-5 text-base text-success-800 data-[te-alert-show]:inline-flex"
+                                                            role="alert"
+                                                            data-te-alert-init
+                                                            data-te-alert-show>
+                                                            <strong class="mr-1">Xross Point! </strong><span class="font-light"> {{ message }}</span>
+                                                            <button type="button" class="ml-auto box-content rounded-none border-none p-1 text-success-900 opacity-50 hover:text-success-900 hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none" data-te-alert-dismiss aria-label="Close">
+                                                                <span
+                                                                class="w-[1em] focus:opacity-100 disabled:pointer-events-none disabled:select-none disabled:opacity-25 [&.disabled]:pointer-events-none [&.disabled]:select-none [&.disabled]:opacity-25">
+                                                                <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 24 24"
+                                                                    fill="currentColor"
+                                                                    class="h-6 w-6">
+                                                                    <path
+                                                                    fill-rule="evenodd"
+                                                                    d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
+                                                                    clip-rule="evenodd" />
+                                                                </svg>
+                                                                </span>
+                                                            </button>
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if message.tags == 'warning' %}
+                                                        <div
+                                                            class="mb-3 hidden w-full items-center rounded-lg bg-warning-100 px-6 py-5 text-base text-warning-800 data-[te-alert-show]:inline-flex"
+                                                            role="alert"
+                                                            data-te-alert-init
+                                                            data-te-alert-show>
+                                                            <strong class="mr-1">Xross Point! </strong> <span class="font-light"> {{ message }}</span>
+                                                            <button type="button" class="ml-auto box-content rounded-none border-none p-1 text-warning-900 opacity-50 hover:text-warning-900 hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none" data-te-alert-dismiss aria-label="Close">
+                                                                <span
+                                                                class="w-[1em] focus:opacity-100 disabled:pointer-events-none disabled:select-none disabled:opacity-25 [&.disabled]:pointer-events-none [&.disabled]:select-none [&.disabled]:opacity-25">
+                                                                <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 24 24"
+                                                                    fill="currentColor"
+                                                                    class="h-6 w-6">
+                                                                    <path
+                                                                    fill-rule="evenodd"
+                                                                    d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
+                                                                    clip-rule="evenodd" />
+                                                                </svg>
+                                                                </span>
+                                                            </button>
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if message.tags == 'error' %}
+                                                        <div
+                                                            class="mb-3 hidden w-full items-center rounded-lg bg-danger-100 px-6 py-5 text-base text-danger-800 data-[te-alert-show]:inline-flex"
+                                                            role="alert"
+                                                            data-te-alert-init
+                                                            data-te-alert-show>
+                                                            <strong class="mr-1">Xross Point! </strong><span class="font-light"> {{ message }}</span>
+                                                            <button type="button" class="ml-auto box-content rounded-none border-none p-1 text-danger-900 opacity-50 hover:text-danger-900 hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none" data-te-alert-dismiss aria-label="Close">
+                                                                <span
+                                                                class="w-[1em] focus:opacity-100 disabled:pointer-events-none disabled:select-none disabled:opacity-25 [&.disabled]:pointer-events-none [&.disabled]:select-none [&.disabled]:opacity-25">
+                                                                <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 24 24"
+                                                                    fill="currentColor"
+                                                                    class="h-6 w-6">
+                                                                    <path
+                                                                    fill-rule="evenodd"
+                                                                    d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
+                                                                    clip-rule="evenodd" />
+                                                                </svg>
+                                                                </span>
+                                                            </button>
+                                                        </div>
+                                                    {% endif %}
+                                                {% else %}
+                                                    <div
+                                                        class="mb-3 hidden w-full items-center rounded-lg bg-secondary-100 px-6 py-5 text-base text-secondary-800 data-[te-alert-show]:inline-flex"
+                                                        role="alert"
+                                                        data-te-alert-init
+                                                        data-te-alert-show>
+                                                        <strong class="mr-1">Xross Point! </strong> <span class="font-light"> {{ message }}</span>
+                                                        <button type="button" class="ml-auto box-content rounded-none border-none p-1 text-secondary-900 opacity-50 hover:text-secondary-900 hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none" data-te-alert-dismiss aria-label="Close">
+                                                            <span
+                                                            class="w-[1em] focus:opacity-100 disabled:pointer-events-none disabled:select-none disabled:opacity-25 [&.disabled]:pointer-events-none [&.disabled]:select-none [&.disabled]:opacity-25">
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 24 24"
+                                                                fill="currentColor"
+                                                                class="h-6 w-6">
+                                                                <path
+                                                                fill-rule="evenodd"
+                                                                d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
+                                                                clip-rule="evenodd" />
+                                                            </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                {% endif %}                                            
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                <div>
+                                <div>
+                                    {% block content %}
+                                    {% endblock content %}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                    </div>
+                    <!-- container-fluid -->
+                </div>
+            </div>
+            <!-- end main content-->
+
+        </div>
+        <!-- END layout-wrapper -->
+
+        {% include "admin/_footer.html" %}
+
+        <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" type="text/javascript"></script>
+        <script src="{% static 'js/menu.js' %}" type="text/javascript"></script>
+    
+        <!-- JAVASCRIPT -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/3.0.7/metisMenu.min.js"></script>
+
+        <!-- App js -->
+        <script src="{% static 'js/admin.js' %}"></script>
+
+        {% compress js file %}
+            {% block js %}
+            {% endblock js %}
+        {% endcompress %}
+    </body>
+
+</html>

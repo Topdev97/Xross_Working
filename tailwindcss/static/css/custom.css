@@ -1,0 +1,129 @@
+html {
+    font-family: 'Noto Sans JP', sans-serif !important;
+}
+
+#job-detail {
+    width: 100% !important;
+}
+
+.sub-accordion-content,
+.accordion-content {
+    transition: max-height 0.3s ease-out, padding 0.3s ease;
+}
+
+.category_container label{
+    padding: 8px;
+    display: block;
+    cursor: pointer;
+}
+
+.category_container label:hover{
+    background-color: #eee;
+}
+
+.category_container input{
+    display: none;
+}
+
+.category_container label:has(input[type='checkbox']:checked){
+    color: #15803d;
+    font-weight: 700;
+}
+
+
+.work_at_container>div{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.work_at_container label{
+    padding: 8px;
+    display: inline-block;
+    cursor: pointer;
+
+}
+
+.work_at_container label:hover{
+    background-color: #eee;
+}
+
+.work_at_container input{
+    display: none;
+}
+
+.work_at_container label:has(input[type='checkbox']:checked){
+    color: #15803d;
+    font-weight: 700;
+}
+
+
+.work_hour_container label{
+    padding: 8px;
+    display: block;
+    cursor: pointer;
+
+}
+
+.work_hour_container label:hover{
+    background-color: #eee;
+}
+
+.work_hour_container input{
+    display: none;
+}
+
+.work_hour_container label:has(input[type='checkbox']:checked){
+    color: #15803d;
+    font-weight: 700;
+}
+
+.work_type_container label{
+    padding: 8px;
+    display: block;
+    cursor: pointer;
+
+}
+
+.work_type_container label:hover{
+    background-color: #eee;
+}
+
+.work_type_container input{
+    display: none;
+}
+
+.work_type_container label:has(input[type='checkbox']:checked){
+    color: #15803d;
+    font-weight: 700;
+}
+
+.stripe-button-el{
+    display: none !important;
+}
+
+/* width */
+
+*::-webkit-scrollbar {
+    width: 5px !important;
+}
+
+
+/* Track */
+
+*::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+
+/* Handle */
+
+*::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+
+/* Handle on hover */
+
+*::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

@@ -1,0 +1,25 @@
+{% extends 'account/_base.html' %}
+{% load static %}
+{% load socialaccount %}
+{% load i18n %}
+{% block title %}
+{% trans "Verify Your E-mail Address" %}
+{% endblock title %}
+
+{% block content %}
+<div class="w-full max-w-[768px] mx-auto my-10">
+
+    <div class="p-6 md:py-12  md:border-2 border-neutral-300 rounded-md">
+        <h1 class="text-2xl text-center font-bold mb-4 text-neutral-700">{% trans "Verify Your E-mail Address" %}</h1>
+        <hr class="my-3 md:mt-12 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
+
+        <div class="flex justify-center text-primary-500">
+            <svg class="w-[100px] h-[100px]  fill-current" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 334.5 334.5" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M332.797,13.699c-1.489-1.306-3.608-1.609-5.404-0.776L2.893,163.695c-1.747,0.812-2.872,2.555-2.893,4.481 s1.067,3.693,2.797,4.542l91.833,45.068c1.684,0.827,3.692,0.64,5.196-0.484l89.287-66.734l-70.094,72.1 c-1,1.029-1.51,2.438-1.4,3.868l6.979,90.889c0.155,2.014,1.505,3.736,3.424,4.367c0.513,0.168,1.04,0.25,1.561,0.25 c1.429,0,2.819-0.613,3.786-1.733l48.742-56.482l60.255,28.79c1.308,0.625,2.822,0.651,4.151,0.073 c1.329-0.579,2.341-1.705,2.775-3.087L334.27,18.956C334.864,17.066,334.285,15.005,332.797,13.699z"></path> </g></svg>
+        </div>
+
+        <p class="py-3 text-neutral-600">
+            確認のために電子メールを送信しました。 提供されたリンクに従って、サインアップ プロセスを完了します。 メインの受信トレイに確認メールが届かない場合は、スパム フォルダを確認してください。 数分経っても確認メールが届かない場合は、お問い合わせください。
+        </p>
+    </div>
+</div>
+{% endblock %}

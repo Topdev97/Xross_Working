@@ -1,0 +1,120 @@
+{% extends 'base/_base.html' %}
+{% load static %}
+{% load filters %}
+
+{% block title %}
+発注者情報-{{employer.username}}
+{% endblock title %}
+{% block description %}
+{{employer.employer.intro}}
+{% endblock description %}
+
+
+{% block css %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+<style>
+    
+</style>
+{% endblock css %}
+
+{% block content %}
+<section class="relative">
+    <div class="">
+        <div class="w-full relative shrink-0">
+            <img src="{% static 'uploads/features/' %}{{employer.employer.feature_image}}" class="h-64 w-full object-cover rounded-xl shadow dark:shadow-gray-700" alt="">
+        </div>
+
+        <div class=" max-w-[1200px] mx-auto md:flex ltr:ml-4 rtl:mr-4 -mt-12">
+            <div class="md:w-full">
+                <div class="relative flex items-end space-x-3">
+                    <img src="{% static 'uploads/avatars/' %}{{employer.avatar}}" class="h-28 w-28 rounded-full bg-white shadow-lg dark:shadow-gray-800 ring-4 ring-slate-50 dark:ring-slate-800" alt="">
+                    <div class="ltr:ml-6 rtl:mr-6">
+                        <h5 class="text-lg font-semibold uppercase">{{employer.username}}</h5>
+                        <p class="text-slate-400">{{employer.employer.company_name}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end -->
+</section>
+
+<section class="relative mt-12 md:pb-24 pb-16 px-6 max-w-[1200px] mx-auto">
+    <div class="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
+        <div class="lg:col-span-8 md:col-span-7">
+            <h5 class="text-xl font-semibold">会社紹介</h5>
+            <p class="text-slate-400 my-4" style="min-height:100px">
+                {{employer.employer.intro |safe}}
+            </p>
+
+            <h5 class="text-xl font-semibold mb-1">GoogleMap</h5>
+            <iframe src="{{employer.employer.google_map_url}}" class="w-full h-[450px]" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        
+        </div>
+        <!--end col-->
+
+        <div class="lg:col-span-4 md:col-span-5">
+            <div class="bg-slate-50 text-neutral-600 dark:bg-slate-800 rounded-md shadow dark:shadow-gray-700 p-6 sticky top-20 space-y-3">
+
+                <div class="space-y-3">
+                    {% if employer.employer.company_url != "" %}
+                        <div class=" flex items-center space-x-1">
+                            <span><i class="fa fa-link"></i></span>
+                            <span><a href="{{employer.employer.company_url}}"  target="_blank">{{employer.employer.company_url}}</a></span>
+                        </div>
+                    {% endif %}
+                    {% if employer.employer.github_url != "" %}
+                        <div class=" flex items-center space-x-1">
+                            <span><i class="fab fa-github"></i></span>
+                            <span><a href="{{employer.employer.github_url}}"  target="_blank">{{employer.employer.github_url}}</a></span>
+                        </div>
+                    {% endif %}
+                    {% if employer.employer.facebook_url != "" %}
+                        <div class=" flex items-center space-x-1">
+                            <span><i class="fab fa-facebook"></i></span>
+                            <span><a href="{{employer.employer.facebook_url}}"  target="_blank">{{employer.employer.facebook_url}}</a></span>
+                        </div>
+                    {% endif %}
+                    {% if employer.employer.twitter_url != "" %}
+                        <div class=" flex items-center space-x-1">
+                            <span><i class="fab fa-twitter"></i></span>
+                            <span><a href="{{employer.employer.twitter_url}}"  target="_blank">{{employer.employer.twitter_url}}</a></span>
+                        </div>
+                    {% endif %}
+                    <div class="flex items-center space-x-1">
+                        <span>代表者名</span>
+                        <span>：</span>
+                        <span>{{employer.employer.seo_name}}</span>
+                    </div>
+                    <div class="flex items-center space-x-1">
+                        <span>場所</span>
+                        <span>：</span>
+                        <span>{{employer.employer.address}}</span>
+                    </div>
+                    <div class="flex items-center space-x-1">
+                        <span>設立日</span>
+                        <span>：</span>
+                        <span>{{employer.employer.publish_at|date}}</span>
+                    </div>
+                    <div class="flex items-center space-x-1">
+                        <span>登録日</span>
+                        <span>：</span>
+                        <span>{{employer.created_at|date}}</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--end col-->
+    </div>
+    <!--end container-->
+
+</section>
+<!-- Container for demo purpose -->
+{% endblock content %}
+
+{% block js %}
+<script>
+    
+</script>
+{% endblock js %}

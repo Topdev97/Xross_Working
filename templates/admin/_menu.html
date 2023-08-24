@@ -1,0 +1,127 @@
+
+<div data-simplebar class="text-md">
+
+    <!--- Sidemenu -->
+    <div id="sidebar-menu">
+        <!-- Left Menu Start -->
+        <ul class="metismenu list-unstyled" id="side-menu">
+            <li class="menu-title" key="t-menu">メニュー</li>
+            
+
+            <li>
+                <a href="{% url 'admin_employees' %}"  >
+                    <i class='bx bx-user' ></i>
+                    <span key="t-home-circle">受注者管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'admin_employers' %}"  >
+                    <i class='bx bx-user' ></i>
+                    <span key="t-home-circle">発注者管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript: void(0);"  class="relative">
+                    <i class='bx bx-briefcase-alt'></i>
+                    <span key="t-location-plus">案件管理</span>
+                    
+                    {% if request.session.message_count > 0 %}
+                        <span
+                            class="absolute right-3 top-2 text-xs bg-red-500 text-white font-medium px-2 shadow-lg rounded-full">
+                            {{request.session.message_count}}
+                        </span>
+                    {% endif %}
+                </a>
+                <ul class="sub-menu" aria-expanded="false">
+                    <li><a href="{% url 'admin_jobs' %}"  key="t-default">案件一覧</a></li>
+                    <li class="relative">
+                        <a href="{% url 'admin_jobs_new' %}"   key="t-saas">新しい案件</a>
+                        
+                    </li>
+                </ul>
+            </li> 
+
+
+            <li>
+                <a href="{% url 'admin_messages' %}"  >
+                    <i class='bx bx-comment-detail'></i>
+                    <span key="t-home-circle">メッセージ管理</span>
+                </a>
+            </li>
+            <li class="menu-title" key="t-menu">静的データ</li>
+            
+            <li>
+                <a href="{% url 'admin_sites' %}"  >
+                    <i class='bx bx-home-alt-2' ></i>
+                    <span key="t-home-circle">サイト管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript: void(0);" >
+                    <i class='bx bx-location-plus' ></i>
+                    <span key="t-location-plus">都道府県管理</span>
+                </a>
+                <ul class="sub-menu" aria-expanded="false">
+                    <li><a href="{% url 'admin_prefectures' %}"  key="t-default">都道府県一覧</a></li>
+                    <li><a href="{% url 'admin_prefectures_create' %}"   key="t-saas">都道府県登録</a></li>
+                </ul>
+            </li> 
+            <li>
+                <a href="javascript: void(0);" >
+                    <i class='bx bx-category-alt'></i>
+                    <span key="t-location-plus">カテゴリ管理</span>
+                </a>
+                <ul class="sub-menu" aria-expanded="false">
+                    <li><a href="{% url 'admin_categories' %}"  key="t-default">カテゴリ一覧</a></li>
+                    <li><a href="{% url 'admin_categories_create' %}"   key="t-saas">カテゴリ登録</a></li>
+                </ul>
+            </li> 
+            <li>
+                <a href="javascript: void(0);" >
+                    <i class='bx bxl-visual-studio'></i>
+                    <span key="t-location-plus">スキル管理</span>
+                </a>
+                <ul class="sub-menu" aria-expanded="false">
+                    <li><a href="{% url 'admin_skills' %}"  key="t-default">スキル一覧</a></li>
+                    <li><a href="{% url 'admin_skills_create' %}"   key="t-saas">スキル登録</a></li>
+                </ul>
+            </li> 
+            <li>
+                <a href="javascript: void(0);" >
+                    <i class='bx bxs-school'></i>
+                    <span key="t-location-plus">稼働率管理</span>
+                </a>
+                <ul class="sub-menu" aria-expanded="false">
+                    <li><a href="{% url 'admin_workhours' %}"  key="t-default">稼働率一覧</a></li>
+                    <li><a href="{% url 'admin_workhours_create' %}"   key="t-saas">稼働率登録</a></li>
+                </ul>
+            </li> 
+            <li>
+                <a href="javascript: void(0);" >
+                    <i class='bx bx-bus-school' ></i>
+                    <span key="t-location-plus">勤務形態管理</span>
+                </a>
+                <ul class="sub-menu" aria-expanded="false">
+                    <li><a href="{% url 'admin_worktypes' %}"  key="t-default">勤務形態一覧</a></li>
+                    <li><a href="{% url 'admin_worktypes_create' %}"   key="t-saas">勤務形態登録</a></li>
+                </ul>
+            </li> 
+
+            <li class="menu-title" key="t-menu">マイページ</li>
+            <li>
+                <a href="{% url 'admin_email_change' %}"  >
+                    <i class='bx bx-envelope' ></i>
+                    <span key="t-home-circle">メールアドレス変更</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'admin_password_change' %}"  >
+                    <i class='bx bx-key' ></i>
+                    <span key="t-home-circle">パスワード変更</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- Sidebar -->
+</div>
+

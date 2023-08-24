@@ -1,0 +1,204 @@
+{% load static %}
+
+{% block css %}
+
+
+
+{% endblock css %}
+<header class=" {% if user.is_authenticated %} fixed shadow-lg {% endif %} top-0 left-0 z-[2000] w-full bg-white ">
+    <nav class=" w-full max-w-[1600px] flex relative justify-between items-center mx-auto px-3 lg:px-8 h-16">
+        <!-- logo -->
+        <div href="" class="w-full flex justify-center md:justify-start items-center space-x-3">
+            <a  href="/jobs/search" class="text-4xl text-red-500 text-center md:text-left" style="font-family: 'Mogra', cursive;">
+                XrossPoint
+            </a>
+            {% if user.is_authenticated %}
+            <div class="hidden md:block">
+                <ul class="flex">
+                    <li class="">
+                        <a class="inline-block py-2 px-3 hover:bg-gray-200 rounded-full {% if 'jobs/' in request.path %}text-red-500{% endif %}" href="{% url 'job_index' %}">
+                            <div class="flex items-center relative cursor-pointer whitespace-nowrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" style="fill: currentcolor" viewBox="0 0 112.83 122.88">
+                                    <title>notebook</title>
+                                    <path class="cls-1"
+                                        d="M103.3,34.19l8.23,3.52a2.15,2.15,0,0,1,1.13,2.82l-2,4.56L98.53,39.88l2-4.56a2.15,2.15,0,0,1,2.82-1.13ZM8.88,7.88h8.19V2.73a2.74,2.74,0,0,1,5.47,0V7.88h12V2.73a2.73,2.73,0,1,1,5.46,0V7.88H52V2.73a2.73,2.73,0,0,1,5.46,0V7.88h12V2.73a2.73,2.73,0,0,1,5.46,0V7.88h9.27a8.91,8.91,0,0,1,8.88,8.88V28.54a12.27,12.27,0,0,0-1.76,2.9l-2,4.56A10,10,0,0,0,89,37.16a11.24,11.24,0,0,0-.58,1.15l-.6,1.4V16.76a3.6,3.6,0,0,0-3.58-3.58H75v5.15a2.73,2.73,0,0,1-5.46,0V13.18h-12v5.15a2.73,2.73,0,0,1-5.46,0V13.18H40v5.15a2.73,2.73,0,1,1-5.46,0V13.18h-12v5.15a2.74,2.74,0,0,1-5.47,0V13.18H8.88A3.58,3.58,0,0,0,5.3,16.76v92a3.6,3.6,0,0,0,3.58,3.59H59.16l.56,5.29H8.88A8.89,8.89,0,0,1,0,108.77v-92A8.91,8.91,0,0,1,8.88,7.88ZM20.34,94.35a2.65,2.65,0,0,1,0-5.3H66.72l-2.27,5.3Zm0-17.48a2.65,2.65,0,0,1,0-5.3H72.78a2.52,2.52,0,0,1,1.27.35l-2.12,5Zm0-17.48a2.65,2.65,0,0,1,0-5.3H72.78a2.65,2.65,0,0,1,0,5.3Zm0-17.48a2.65,2.65,0,0,1,0-5.3H72.78a2.65,2.65,0,0,1,0,5.3ZM81,114.6l-6.19,5c-4.85,3.92-4.36,5.06-5-.88l-1-9.34h0L97.54,42.18l12.18,5.22L81,114.6Zm-10.09-4.31,8,3.42L74.82,117c-3.19,2.58-2.87,3.32-3.28-.57l-.66-6.14Z" />
+                                </svg> 案件を探す
+                            </div>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a class="inline-block py-2 px-3 hover:bg-gray-200 rounded-full {% if '/employees' in request.path or '/employers' in request.path %}text-red-500{% endif %}" href="{% url 'employees' %}">
+                            <div class="flex items-center relative cursor-pointer whitespace-nowrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" style="fill: currentcolor" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 424 511.65">
+                                    <path
+                                        d="M28.21 53.37h67.64v43.72H66.68c-13.03 0-23.82 10.8-23.82 23.82v326.57c0 13.04 10.73 23.82 23.82 23.82h290.64c13.09 0 23.82-10.75 23.82-23.82V120.91c0-13.08-10.79-23.82-23.82-23.82h-29.17V53.37h67.64c15.52 0 28.21 12.77 28.21 28.21v401.86c0 15.46-12.75 28.21-28.21 28.21H28.21C12.75 511.65 0 498.96 0 483.44V81.58c0-15.52 12.69-28.21 28.21-28.21zM212 379.45H111.25c-1.64 0-2.98-1.33-2.98-2.98 0-.85.12-1.68.33-2.52 4.77-37.82 24.32-38.49 45.36-43.98 6.29-1.65 17.76-5.14 24.44-10.99 3.66-3.23 5.9-7.17 5.01-11.92-5.09-4.71-8.99-9.8-9.88-19.52l-.6.01c-1.42-.02-2.78-.34-4.05-1.06-2.8-1.59-4.34-4.65-5.08-8.14-.94-4.41-.63-9.64-.17-12.96l.17-.64c.98-2.73 2.19-4.21 3.73-4.85l.04-.02c-.7-13.13 1.52-33.93-11.97-38.01 26.62-32.9 57.32-50.79 80.36-21.53 25.68 1.35 37.13 39.2 21.19 59.56h-.68c1.54.64 2.75 2.12 3.73 4.85l.17.64c.46 3.32.77 8.55-.17 12.96-.74 3.49-2.28 6.55-5.08 8.14-1.27.72-2.63 1.04-4.05 1.06l-.6-.01c-.89 9.72-4.79 14.81-9.88 19.52-.89 4.75 1.35 8.69 5.01 11.92 6.68 5.85 18.15 9.34 24.44 10.99 21.04 5.49 40.59 6.16 45.36 43.98.21.84.33 1.67.33 2.52 0 1.65-1.34 2.98-2.98 2.98H212zM134.93 39.4h31.97C169.6 17.18 187.53 0 209.28 0c21.6 0 39.44 16.95 42.33 38.93l37.42.47c2.62 0 4.71 2.09 4.71 4.7v63.84c0 2.6-2.09 4.7-4.71 4.7H134.97c-2.56 0-4.7-2.1-4.7-4.7V44.1c-.05-2.61 2.05-4.7 4.66-4.7zm56.84 19.33c2.89 3.96 7.03 7.86 11.41 9.87 3.58 1.07 7.49 1.17 11.13.18 5.68-2.61 10.9-8.89 13.31-14.15.29-1.49.48-3.03.48-4.71 0-11.13-8.53-20.16-19.06-20.16-10.52 0-19.04 9.03-19.04 20.16.05 3.36.65 6.34 1.77 8.81z" />
+                                </svg> 人材を探す
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- end logo -->
+
+        {% if user.is_authenticated %}
+        <div class="hidden md:block flex-initial flex-grow">
+            <div class="flex justify-end items-center relative">
+
+                {% if user.is_authenticated %}
+                <div class="flex mr-4 items-center">
+                    <div class="block relative">
+                        <a href="{% if user.user_type == 'employer' %}{% url 'job_workspace' %}{% else %}{% url 'employee_messages' %}{% endif %}" class="relative inline-block py-2 px-3 hover:bg-gray-200 rounded-full">
+                            <div class="flex items-center h-5">
+                                <div class="_xpkakx">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 108.31"
+                                        class="block w-6 h-6">
+                                        <title>text-message</title>
+                                        <path class="cls-1"
+                                            d="M51.46,93.86c12.9,12.44,31.14,16.2,49.38,8.43l15.31,6-5.07-12.06c17-13.63,14-32.35,1.44-45.11A44.05,44.05,0,0,1,107.65,65,51.25,51.25,0,0,1,93.58,81,62.69,62.69,0,0,1,73.92,91a70.44,70.44,0,0,1-22.46,2.9ZM31.58,54.07a3.11,3.11,0,0,1,0-6.21H61.51a3.11,3.11,0,0,1,0,6.21Zm0-17.22a3.11,3.11,0,0,1,0-6.21H74.34a3.11,3.11,0,0,1,0,6.21ZM54.28,0h0C68.81.47,81.8,5.62,91.09,13.59c9.49,8.13,15.17,19.2,14.82,31.27v0C105.54,57,99.19,67.71,89.22,75.28,79.44,82.7,66.15,87.07,51.66,86.65A63.91,63.91,0,0,1,40,85.24a60.48,60.48,0,0,1-9.87-3L6.69,91.44l7.83-18.63A44,44,0,0,1,4,59.5,36.67,36.67,0,0,1,0,41.79C.38,29.7,6.73,19,16.7,11.4,26.48,4,39.78-.4,54.26,0Zm-.15,6.18h-.05C41,5.83,29.14,9.72,20.44,16.32,11.92,22.78,6.5,31.84,6.2,42A30.49,30.49,0,0,0,9.55,56.71,38.76,38.76,0,0,0,20.17,69.47L22,70.93,18.08,80.3l12.08-4.75,1.17.5a55.08,55.08,0,0,0,9.91,3.13,58.52,58.52,0,0,0,10.59,1.29c13,.38,25-3.51,33.66-10.12C94,63.89,99.42,54.84,99.73,44.72v0c.29-10.11-4.56-19.45-12.66-26.4C78.79,11.19,67.16,6.61,54.15,6.21Z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            {% if request.session.message_count > 0 %}
+                                <span
+                                    class="absolute right-0 top-0 -mt-2 -mr-1 text-xs bg-red-500 text-white font-medium px-2 shadow-lg rounded-full">
+                                    {{request.session.message_count}}
+                                </span>
+                            {% endif %}
+                        </a>
+                    </div>
+                    {% comment %} <div class="block relative">
+                        <button type="button" class="relative inline-block py-2 px-3 hover:bg-gray-200 rounded-full">
+                            <div class="flex items-center h-5">
+                                <div class="_xpkakx">
+                                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                        class="block w-6 h-6" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                                        y="0px" viewBox="0 0 116.11 122.88"
+                                        style="enable-background:new 0 0 116.11 122.88" xml:space="preserve">
+                                        <g>
+                                            <path
+                                                d="M74.82,109.04c-0.37,1.94-1.02,3.72-1.96,5.35c-0.97,1.67-2.24,3.18-3.8,4.5c-1.57,1.32-3.27,2.32-5.12,2.99 c-1.85,0.67-3.81,1-5.88,1c-2.08,0-4.04-0.34-5.88-1c-1.84-0.67-3.55-1.66-5.11-2.99c-1.57-1.33-2.83-2.83-3.8-4.5 c-0.97-1.67-1.63-3.51-1.99-5.53c-0.18-0.98,0.48-1.92,1.46-2.1c0.03,0,0.32-0.03,0.32-0.03h30.02c1,0,1.82,0.81,1.82,1.82 C74.89,108.72,74.86,108.88,74.82,109.04L74.82,109.04L74.82,109.04z M20.21,0.25c1.83-0.73,3.9,0.17,4.63,2 c0.73,1.83-0.17,3.9-2,4.63c-3.96,1.58-7.28,3.77-9.93,6.61c-2.64,2.84-4.63,6.36-5.93,10.59c-0.58,1.88-2.58,2.94-4.46,2.36 c-1.88-0.58-2.94-2.58-2.36-4.46c1.63-5.3,4.15-9.74,7.52-13.36C11.05,5.01,15.24,2.23,20.21,0.25L20.21,0.25z M93.27,6.88 c-1.83-0.73-2.73-2.8-2-4.63c0.73-1.83,2.8-2.73,4.63-2c4.97,1.98,9.16,4.76,12.53,8.38c3.37,3.63,5.9,8.07,7.52,13.36 c0.58,1.88-0.48,3.88-2.36,4.46c-1.88,0.58-3.88-0.48-4.46-2.36c-1.3-4.24-3.29-7.76-5.93-10.59 C100.55,10.65,97.23,8.46,93.27,6.88L93.27,6.88z M67.62,10.54c1.47,0.38,2.9,0.85,4.29,1.4c2.04,0.81,4,1.78,5.88,2.91 c0.07,0.05,0.15,0.09,0.22,0.14c1.8,1.11,3.48,2.33,5.02,3.65c1.62,1.39,3.12,2.92,4.52,4.6l0.01,0.01h0 c1.37,1.65,2.59,3.42,3.67,5.29c1.08,1.88,2.01,3.84,2.78,5.86l0,0c0.79,2.09,1.38,4.22,1.78,6.41c0.39,2.2,0.59,4.45,0.59,6.76 c0,4.56,0,7.03,0,7.33c0.01,2.34,0.02,4.63,0.04,6.86v0.02l0,0c0.01,2.02,0.14,4.05,0.39,6.08c0.25,2.01,0.61,3.95,1.08,5.82l0,0 c0.47,1.84,1.11,3.62,1.9,5.32c0.82,1.75,1.82,3.47,2.99,5.14l0.01,0c1.16,1.64,2.61,3.27,4.35,4.87c1.8,1.65,3.88,3.28,6.26,4.86 c1.36,0.91,1.73,2.76,0.81,4.12c-0.57,0.85-1.51,1.32-2.47,1.32v0.01l-26.85,0H58.06H31.21H4.37c-1.65,0-2.98-1.33-2.98-2.98 c0-1.08,0.58-2.03,1.44-2.55c2.41-1.63,4.48-3.25,6.21-4.85c1.72-1.59,3.16-3.22,4.32-4.9c0.03-0.05,0.07-0.1,0.11-0.14 c1.12-1.64,2.08-3.31,2.87-5.01c0.81-1.73,1.46-3.51,1.94-5.34c0.01-0.04,0.02-0.08,0.03-0.11c0.46-1.78,0.81-3.66,1.05-5.63 c0.24-1.98,0.37-4.03,0.37-6.14v-14.1c0-2.27,0.2-4.52,0.61-6.77c0.41-2.24,1-4.39,1.79-6.44c0.78-2.05,1.72-4.02,2.81-5.9 c1.08-1.87,2.32-3.64,3.71-5.32l0.02-0.02l0,0c1.38-1.65,2.9-3.19,4.55-4.6c1.63-1.39,3.39-2.66,5.28-3.79 c1.91-1.14,3.89-2.1,5.93-2.88c1.42-0.54,2.89-0.99,4.39-1.36c0.51-1.79,1.39-3.24,2.64-4.35c1.72-1.53,3.98-2.29,6.79-2.26 c2.78,0.02,5.03,0.79,6.73,2.32C66.22,7.32,67.11,8.76,67.62,10.54L67.62,10.54L67.62,10.54z M69.75,17.47 c-1.65-0.65-3.33-1.16-5.04-1.53c-1.32-0.17-2.4-1.21-2.57-2.59c-0.16-1.3-0.53-2.21-1.12-2.73c-0.59-0.52-1.53-0.79-2.82-0.8 c-1.29-0.01-2.22,0.24-2.79,0.75c-0.58,0.52-0.95,1.44-1.1,2.76h0c-0.14,1.26-1.09,2.34-2.41,2.58c-1.85,0.35-3.64,0.85-5.37,1.51 c-1.73,0.65-3.38,1.46-4.98,2.41c-1.59,0.95-3.08,2.02-4.46,3.21c-1.38,1.18-2.67,2.48-3.85,3.9l0,0c-1.16,1.4-2.2,2.91-3.13,4.51 c-0.91,1.58-1.71,3.26-2.39,5.04c-0.68,1.77-1.18,3.57-1.51,5.37c-0.33,1.81-0.49,3.72-0.49,5.72v14.1c0,2.34-0.14,4.62-0.41,6.86 c-0.27,2.15-0.67,4.29-1.22,6.4c-0.01,0.05-0.02,0.09-0.03,0.14c-0.57,2.15-1.34,4.26-2.31,6.34c-0.94,2.01-2.06,3.96-3.35,5.85 c-0.04,0.06-0.08,0.12-0.12,0.18c-1.36,1.96-3.09,3.91-5.18,5.85l-0.08,0.07h18.22h26.85H84.9h18.19c-2.04-1.88-3.76-3.82-5.16-5.8 l0,0l0-0.01c-1.37-1.96-2.54-3.97-3.51-6.03c-0.99-2.1-1.75-4.23-2.3-6.37l0,0l0-0.01c-0.54-2.13-0.95-4.32-1.22-6.56 c-0.26-2.14-0.4-4.4-0.41-6.77v-0.01c-0.02-2.21-0.03-4.51-0.04-6.91c-0.02-4.44-0.02-6.86-0.02-7.33c0-1.96-0.16-3.87-0.5-5.72 c-0.33-1.84-0.82-3.62-1.47-5.34l0,0l0-0.01c-0.67-1.77-1.46-3.44-2.36-5.01c-0.9-1.57-1.94-3.06-3.11-4.48l0,0 c-1.16-1.39-2.43-2.68-3.81-3.87c-1.34-1.15-2.76-2.18-4.25-3.11c-0.07-0.03-0.13-0.07-0.2-0.11 C73.11,18.97,71.45,18.15,69.75,17.47L69.75,17.47L69.75,17.47z" />
+                                        </g>
+                                    </svg>
+                                </div>
+                            </div>
+                            <span
+                                class="absolute right-0 top-0 -mt-2 -mr-1 text-xs bg-red-500 text-white font-medium px-2 shadow-lg rounded-full">
+                                3
+                            </span>
+                        </button>
+                    </div> {% endcomment %}
+                </div>
+                {% endif %}
+                <div class="block">
+                    <div class="relative" data-te-dropdown-ref>
+                        <button type="button" class="inline-flex items-center relative px-2 border rounded-full hover:shadow-lg" data-te-dropdown-toggle-ref aria-expanded="false" data-te-ripple-init data-te-ripple-color="light">
+                            <div class="pl-1">
+                                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                                    role="presentation" focusable="false"
+                                    style="display: block; fill: none; height: 16px; width: 16px; stroke: currentcolor; stroke-width: 3; overflow: visible;">
+                                    <g fill="none" fill-rule="nonzero">
+                                        <path d="m2 16h28"></path>
+                                        <path d="m2 24h28"></path>
+                                        <path d="m2 8h28"></path>
+                                    </g>
+                                </svg>
+                            </div>
+
+                            {% if user.is_authenticated %}
+                            <div class="flex items-center justify-center h-10 w-12 pl-2 ">
+                                <img class="block h-8 w-8 max-w-8 rounded-full" src="{% static 'uploads/avatars/' %}{{user.avatar}}" />
+                            </div>
+                            {% else %}
+                                <div class="block flex-grow-0 flex-shrink-0 h-10 w-12 pl-5">
+                                    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                                        role="presentation" focusable="false"
+                                        style="display: block; height: 100%; width: 100%; fill: currentcolor;">
+                                        <path
+                                            d="m16 .7c-8.437 0-15.3 6.863-15.3 15.3s6.863 15.3 15.3 15.3 15.3-6.863 15.3-15.3-6.863-15.3-15.3-15.3zm0 28c-4.021 0-7.605-1.884-9.933-4.81a12.425 12.425 0 0 1 6.451-4.4 6.507 6.507 0 0 1 -3.018-5.49c0-3.584 2.916-6.5 6.5-6.5s6.5 2.916 6.5 6.5a6.513 6.513 0 0 1 -3.019 5.491 12.42 12.42 0 0 1 6.452 4.4c-2.328 2.925-5.912 4.809-9.933 4.809z">
+                                        </path>
+                                    </svg>
+                                </div>
+                            {% endif %}
+                        </button>
+                        <ul class="absolute z-[1000] py-3 float-left m-0 hidden min-w-max w-64 list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block" aria-labelledby="dropdownMenuButton1d"
+                            data-te-dropdown-menu-ref>
+                            {% if user.is_authenticated %}
+                                <li>
+                                    <a class="block cursor-pointer w-full whitespace-nowrap bg-transparent px-4 py-3 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+                                        data-te-dropdown-item-ref>
+                                        <div class="uppercase line-clamp-1">{{user.username}} 様</div>
+                                        <div class="text-slate-400 text-sm line-clamp-1">{{user.email}}</div>
+                                        {% if user.user_type == "employee" %}
+                                            <div class="text-slate-400 text-sm line-clamp-1">有料 - {{user.paypoints}}pt  無料 - {{user.points}}pt</div>
+                                        {% endif %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'accounts_basic_info'%}" class="block w-full whitespace-nowrap bg-transparent px-4 py-3 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+                                        data-te-dropdown-item-ref>ユーザー情報</a>
+                                </li>
+                                <li>
+                                    <a href="{% if user.user_type == 'employer' %}/employers/{{user.id}}{% else %}/employees/{{user.id}}{% endif %}" class="block w-full whitespace-nowrap bg-transparent px-4 py-3 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+                                        data-te-dropdown-item-ref>公開ページ</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'guide' %}" class="block w-full whitespace-nowrap bg-transparent px-4 py-3 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+                                        data-te-dropdown-item-ref>利用ガイド</a>
+                                </li>
+                                <hr class="my-2 h-0 border border-t-0 border-solid border-neutral-700 opacity-25 dark:border-neutral-200" />
+                                <li>
+                                    <form action="{% url 'account_logout' %}" method="POST">
+                                        {% csrf_token %}
+                                        <button class="block w-full whitespace-nowrap bg-transparent px-4 py-3 text-left text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+                                            data-te-dropdown-item-ref>ログアウト</button>
+                                    </form>
+                                </li>
+                            {% else %}
+                                <li>
+                                    <a href="{% url 'account_login' %}" class="block w-full whitespace-nowrap bg-transparent px-4 py-3 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+                                        data-te-dropdown-item-ref>ログイン</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'account_signup' %}" class="block w-full whitespace-nowrap bg-transparent px-4 py-3 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+                                        data-te-dropdown-item-ref>会員登録（無料）</a>
+                                </li>
+                                <hr class="my-2 h-0 border border-t-0 border-solid border-neutral-700 opacity-25 dark:border-neutral-200" />
+                                <li>
+                                    <a href="{% url 'guide' %}" class="block w-full whitespace-nowrap bg-transparent px-4 py-3  text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+                                        data-te-dropdown-item-ref>ご利用ガイド</a>
+                                </li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                    <div class="inline relative">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="hidden md:block flex-initial flex-grow">
+            <div class="flex justify-end items-center relative">
+                <a href="{% url 'account_login' %}" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-2.5 text-center mr-4 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50" style="width: 180px;">資料DL/ログイン</a>
+                <a href="{% url 'account_signup' %}" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50" style="width: 180px;">無料会員登録</a>
+            </div>
+        </div>
+        {% endif %}
+        <!-- login -->
+
+
+        <div class="flex items-center justify-center md:hidden cursor-pointer"
+            data-te-sidenav-toggle-ref
+            data-te-target="#base_side_bar"
+            aria-controls="#base_side_bar"
+            aria-haspopup="true">
+            <svg viewBox="0 0 24 24" class="w-10 h-10" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Menu / Menu_Alt_01"> <path id="Vector" d="M12 17H19M5 12H19M5 7H19" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
+        </div>
+        <!-- end login -->
+    </nav>
+
+</header>

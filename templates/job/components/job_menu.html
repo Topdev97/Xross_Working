@@ -1,0 +1,115 @@
+
+<div class="w-full max-w-[300px] mx-auto space-y-3  text-neutral-700">
+    <div class="mb-3 text-xl py-3 border-b-2 border-b-green-700 flex items-center">
+        <svg class="h-7 w-7 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+                <path
+                    d="M14.3201 19.07C14.3201 19.68 13.92 20.48 13.41 20.79L12.0001 21.7C10.6901 22.51 8.87006 21.6 8.87006 19.98V14.63C8.87006 13.92 8.47006 13.01 8.06006 12.51L4.22003 8.47C3.71003 7.96 3.31006 7.06001 3.31006 6.45001V4.13C3.31006 2.92 4.22008 2.01001 5.33008 2.01001H18.67C19.78 2.01001 20.6901 2.92 20.6901 4.03V6.25C20.6901 7.06 20.1801 8.07001 19.6801 8.57001"
+                    stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                <path
+                    d="M16.07 16.52C17.8373 16.52 19.27 15.0873 19.27 13.32C19.27 11.5527 17.8373 10.12 16.07 10.12C14.3027 10.12 12.87 11.5527 12.87 13.32C12.87 15.0873 14.3027 16.52 16.07 16.52Z"
+                    stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                </path>
+                <path d="M19.87 17.12L18.87 16.12" stroke="#292D32" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+        </svg> 絞り込み
+    </div>
+
+    <!-- -------------------------------------------------------------------------------------------  -->
+    
+    <!-- -------------------------------------------------------------------------------------------  -->
+        <!-- What is term -->
+        <div class="transition">
+            <!-- header -->
+            <div class="accordion-header cursor-pointer transition flex space-x-5 items-center h-10 relative">
+                <h3>案件カテゴリー</h3>
+                <i class="fas fa-chevron-{% if request.GET.category %}up{% else %}down{% endif %} absolute right-3 top-3 text-green-700"></i>
+            </div>
+            <div class="h-1 w-full mx-auto border-b mb-3"></div>
+            <!-- Content -->
+            <div class="accordion-content  transition-all px-5 pt-0 overflow-hidden {% if request.GET.category %}{% else %}max-h-0{% endif %}">
+                <div class="category_container">
+                    {{form.category}}
+                </div>
+            </div>
+        </div>
+
+        <!-- -------------------------------------------------------------------------------------------  -->
+        <!-- What is term -->
+        <div class="transition">
+            <!-- header -->
+            <div class="accordion-header cursor-pointer transition flex space-x-5 items-center h-10 relative">
+                <h3>希望月額単価</h3>
+                <i class="fas fa-chevron-{% if request.GET.price_min or request.GET.price_max %}up{% else %}down{% endif %} absolute right-3 top-3 text-green-700"></i>
+            </div>
+            <div class="h-1 w-full mx-auto border-b mb-3"></div>
+            <!-- Content -->
+            <div class="accordion-content  transition-all px-5 pt-0 overflow-hidden {% if request.GET.price_min or request.GET.price_max %}{% else %}max-h-0{% endif %}">
+                {% include 'job/components/price.html' with field=form.price_min %}
+                {% include 'job/components/price.html' with field=form.price_max %}
+            </div>
+        </div>
+
+        <!-- -------------------------------------------------------------------------------------------  -->
+        <!-- What is term -->
+        <div class="transition">
+            <!-- header -->
+            <div class="accordion-header cursor-pointer transition flex space-x-5 items-center h-10 relative">
+                <h3>作業場所</h3>
+                <i class="fas fa-chevron-{% if request.GET.work_at %}up{% else %}down{% endif %} absolute right-3 top-3 text-green-700"></i>
+            </div>
+            <div class="h-1 w-full mx-auto border-b mb-3"></div>
+            <!-- Content -->
+            <div class="accordion-content transition-all px-5 pt-0 {% if request.GET.work_at %} {% else %} max-h-0 {% endif %} overflow-hidden">                
+                <div class="work_at_container">
+                    {{form.work_at}}
+                </div>
+            </div>
+        </div>
+
+         <!-- -------------------------------------------------------------------------------------------  -->
+        <!-- What is term -->
+        <div class="transition">
+            <!-- header -->
+            <div class="accordion-header cursor-pointer transition flex space-x-5 items-center h-10 relative">
+                <h3>稼働率</h3>
+                <i class="fas fa-chevron-{% if request.GET.work_hour %}up{% else %}down{% endif %} absolute right-3 top-3 text-green-700"></i>
+            </div>
+            <div class="h-1 w-full mx-auto border-b mb-3"></div>
+            <!-- Content -->
+            <div class="accordion-content transition-all px-5 {% if request.GET.work_hour %} {% else %} max-h-0 {% endif %} pt-0 overflow-hidden">          
+                <div class="work_hour_container">
+                    {{form.work_hour}}
+                </div>   
+            </div>
+        </div>
+
+         <!-- -------------------------------------------------------------------------------------------  -->
+        <!-- What is term -->
+        <div class="transition">
+            <!-- header -->
+            <div class="accordion-header cursor-pointer transition flex space-x-5 items-center h-10 relative">
+                <h3>勤務形態</h3>
+                <i class="fas fa-chevron-{% if request.GET.work_type %}up{% else %}down{% endif %} absolute right-3 top-3 text-green-700"></i>
+            </div>
+            <div class="h-1 w-full mx-auto border-b mb-3"></div>
+            <!-- Content -->
+            <div class="accordion-content transition-all px-5 pt-0 {% if request.GET.work_type %} {% else %} max-h-0 {% endif %}  overflow-hidden">         
+                <div class="work_type_container">
+                    {{form.work_type}}
+                </div>   
+            </div>
+        </div>
+        <!-- -------------------------------------------------------------------------------------------  -->
+        <button type="submit" id="search_submit" class="my-3 block w-full rounded bg-green-700 px-6 pb-2 pt-2.5 font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-green-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-green-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">
+            検索
+        </button>
+        <!-- -------------------------------------------------------------------------------------------  -->
+        <a href="/jobs/search" class="my-3 block w-full text-center rounded bg-warning-500 px-6 pb-2 pt-2.5 font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-warning-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-warning-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-warning-500 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">
+            クリア
+        </a>
+</div>

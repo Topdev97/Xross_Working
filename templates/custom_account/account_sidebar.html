@@ -1,0 +1,59 @@
+{% load static %}
+<div class="block rounded-lg bg-white px-4 dark:bg-neutral-700">
+    <div class="text-center">
+        <div class="relative rounded-full max-w-32 max-h-32 border-gray-300 border-2 border-spacing-4 inline-flex">
+            <img class="rounded-full w-[100px] h-[100px] "
+                src="{% static 'uploads/avatars/' %}{{user.avatar}}" alt="avatar">
+        </div>
+        <button  id="pick-avatar" class="hidden" data-te-toggle="modal" data-te-target="#avatar-picker-modal"  data-te-ripple-init data-te-ripple-color="light"> </button>
+        <p class="font-sans text-base mt-3 text-neutral-800">
+            {{user.first_name|add:" "|add:user.last_name}}
+        </p>
+    </div>
+    <h2 class="mb-3 text-lg font-light text-neutral-800  py-3 border-b-2 border-b-green-700 hidden md:block ">
+        ユーザー情報
+    </h2>
+    <!-- <hr class="my-4 h-0.5 border-t-0 bg-neutral-300 opacity-80 dark:opacity-50"/> -->
+    <ul class="text-neutral-800 text-center md:text-left whitespace-nowrap">
+        <li class="py-2 text-md cursor-pointer {% if '/basic_info' in request.path %}text-green-600{% else %}{% endif %}   border-b-2 border-neutral-100 border-opacity-100 dark:border-opacity-50 hover:border-neutral-400 md:border-none ">
+            <a href="{% url 'accounts_basic_info' %}">基本情報</a>
+        </li>
+        
+        {% if user.user_type == 'employee' %}
+            <li class="py-2 text-md cursor-pointer {% if '/employee_profile' in request.path %}text-green-600{% else %}{% endif %}   border-b-2 border-neutral-100 border-opacity-100 dark:border-opacity-50 hover:border-neutral-400 md:border-none ">
+                <a href="{% url 'accounts_employee_profile' %}">プロフィール</a>
+            </li>
+        {% else %}
+            <li class="py-2 text-md cursor-pointer {% if '/employer_profile' in request.path %}text-green-600{% else %}{% endif %}   border-b-2 border-neutral-100 border-opacity-100 dark:border-opacity-50 hover:border-neutral-400 md:border-none ">
+                <a href="{% url 'accounts_employer_profile' %}">プロフィール</a>
+            </li>
+        {% endif %}
+        {% if user.user_type == 'employee' %}
+            <li class="py-2 text-md cursor-pointer {% if '/experience' in request.path %}text-green-600{% else %}{% endif %} border-b-2 border-neutral-100 border-opacity-100 dark:border-opacity-50 hover:border-neutral-400 md:border-none ">
+                <a href="{% url 'accounts_experience' %}">経歴</a>
+            </li>
+            <li class="py-2 text-md cursor-pointer {% if '/skill' in request.path %}text-green-600{% else %}{% endif %}  border-b-2 border-neutral-100 border-opacity-100 dark:border-opacity-50 hover:border-neutral-400 md:border-none ">
+                <a href="{% url 'accounts_skill' %}">スキル</a>
+            </li>
+        {% endif %} 
+        {% if user.user_type == 'employer' %}
+            <li class="py-2 text-md cursor-pointer  {% if 'workspace/create' in request.path %}text-green-600{% else %}{% endif %}  border-b-2 border-neutral-100 border-opacity-100 dark:border-opacity-50 hover:border-neutral-400 md:border-none ">
+                <a href="{% url 'job_post' %}">新しく投稿</a>
+            </li>
+        {% endif %}
+        {% if user.user_type == 'employee' %}
+            <li class="py-2 text-md cursor-pointer  {% if 'buy/point' in request.path %}text-green-600{% else %}{% endif %}  border-b-2 border-neutral-100 border-opacity-100 dark:border-opacity-50 hover:border-neutral-400 md:border-none ">
+                <a href="{% url 'accounts_buy_points' %}">ポイント購入</a>
+            </li>
+        {% endif %}
+        <li class="py-2 text-md cursor-pointer {% if 'email' in request.path %}text-green-600{% else %}{% endif %}   border-b-2 border-neutral-100 border-opacity-100 dark:border-opacity-50 hover:border-neutral-400 md:border-none ">
+            <a href="{% url 'accounts_email_change' %}">メール変更</a>
+        </li>    
+        <li class="py-2 text-md cursor-pointer {% if 'password' in request.path %}text-green-600{% else %}{% endif %}   border-b-2 border-neutral-100 border-opacity-100 dark:border-opacity-50 hover:border-neutral-400 md:border-none ">
+            <a href="{% url 'account_change_password' %}">パスワード変更</a>
+        </li>    
+        <li class="py-2 text-md cursor-pointer  {% if 'contact' in request.path %}text-green-600{% else %}{% endif %}  border-b-2 border-neutral-100 border-opacity-100 dark:border-opacity-50 hover:border-neutral-400 md:border-none ">
+            <a href="{% url 'accounts_contact' %}">問い合わせ</a>
+        </li>
+    </ul>
+</div>

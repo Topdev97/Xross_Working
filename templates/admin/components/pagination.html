@@ -1,0 +1,52 @@
+
+{% if total_count > 0 %}
+    <nav class="block w-full">
+        <ul class="list-style-none flex justify-center">
+            {% if page_obj.has_previous %}
+                <li>
+                    <a href="?page=1&keyword={{keyword}}"
+                        class="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
+                        aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="?page={{ page_obj.previous_page_number }}&keyword={{keyword}}"
+                        class="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
+                        aria-label="Previous">
+                        <span aria-hidden="true">{{ page_obj.previous_page_number }}</span>
+                    </a>
+                </li>
+            {% endif %}
+
+            <li aria-current="page">
+                <a
+                class="relative block rounded-full bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300"
+                href="#!"
+                >{{ page_obj.number }}
+                <span
+                    class="absolute -m-px h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 [clip:rect(0,0,0,0)]"
+                    >(current)</span
+                >
+                </a>
+            </li>
+            
+            {% if page_obj.has_next %}
+                <li>
+                    <a href="?page={{ page_obj.next_page_number }}&keyword={{keyword}}"
+                        class="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
+                        aria-label="Previous">
+                        <span aria-hidden="true">{{ page_obj.next_page_number }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a  href="?page={{ page_obj.paginator.num_pages }}&keyword={{keyword}}"
+                        class="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
+                        aria-label="Previous">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}

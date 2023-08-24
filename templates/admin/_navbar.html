@@ -1,0 +1,67 @@
+{% load static %}
+
+{% block css %}
+
+{% endblock css %}
+
+
+<header id="page-topbar">
+    <div class="navbar-header">
+        <div class="flex">
+            <!-- LOGO -->
+            <div class="navbar-brand-box">
+                <a href="" class="logo logo-dark">
+                    <span class="logo-sm">
+                        <span class="font-black" style="font-size:20px" >XP</span>
+                    </span>
+                    <span class="logo-lg">
+                        <span class="font-black" style="font-size:20px" >XrossPoint</span>
+                    </span>
+                </a>
+            </div>
+
+            <button type="button" class="btn btn-sm px-3 font-size-16 header-item " id="vertical-menu-btn">
+                <i class="fa fa-fw fa-bars"></i>
+            </button>
+        </div>
+
+        <div class="flex items-center">
+            <button class="cursor-pointer block" 
+                type="button"
+                id="user_dropdown"
+                data-te-dropdown-toggle-ref
+                aria-expanded="false"
+                data-te-ripple-init
+                data-te-ripple-color="light">
+                <img class="rounded-full header-profile-user" src="{% static 'images/user.png' %}" style="height:40px"
+                    alt="Header Avatar">
+            </button>
+
+            {% if user.is_authenticated %}
+        
+                <div
+                    aria-labelledby="user_dropdown"
+                    data-te-dropdown-menu-ref class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white divide-y divide-gray-100  bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block">
+                    <div class="px-4 pt-6 pb-3 text-sm text-gray-900 dark:text-white">
+                        <div class="font-black text-sm mb-2">{{user.username}} 様</div>
+                        <div class="font-medium text-sm truncate">{{user.email}}</div>
+                    </div>
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
+                        <li>
+                            <a href="/" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">サイトを表示</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'admin_password_change' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">パスワードの変更</a>
+                        </li>
+                    </ul>
+                    <div class="py-2">
+                        <form action="{% url 'account_logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">ログアウト</button>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</header>

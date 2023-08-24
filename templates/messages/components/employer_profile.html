@@ -1,0 +1,53 @@
+{% load static %}
+
+<div id="user-profile" class="transition-all pt-20 fixed right-0 top-0 z-[1035] h-screen w-[320px] min-w-[320px] translate-x-full overflow-hidden bg-white shadow-[0_4px_12px_0_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.05)] data-[te-sidenav-hidden='false']:-translate-x-0 dark:bg-zinc-800"
+    data-te-sidenav-init data-te-sidenav-hidden="true" data-te-sidenav-right="true">
+
+    <div class="flex justify-end p-3 items-center">
+        <!--Close button-->
+        <button type="button" onclick="te.Sidenav.getInstance(document.getElementById('user-profile')).hide()" class="box-content rounded-none border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none" aria-label="Close">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="h-6 w-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+
+    <img class="h-[150px] w-[150px] mx-auto mt-6 mb-3 rounded-full shadow-md" src="{% static '/uploads/avatars'%}/{{job.user.avatar}} " alt="Contact Person" />
+
+    <div class="space-y-1 text-center">
+        <div class="text-lg uppercase">
+            {{job.user.username}}
+        </div>
+        <div class="text-sm">
+            {{job.user.employer.company_name}}
+        </div>
+        <div class="pt-3">
+            <a href="/employers/{{job.user.id}}" class="px-4 py-1.5 text-sm bg-emerald-600 hover:bg-emerald-700 border-emerald-600 dark:border-emerald-600 text-white rounded-md">プロフィールを見る</a>
+        </div>
+    </div>
+    <hr class="my-3 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
+
+    <div class="px-6 space-y-3">
+        <div class="flex items-center space-x-1">
+            <span>場所</span>
+            <span>：</span>
+            <span>{{job.user.prefecture.name}}</span>
+        </div>
+        <div class="flex items-center space-x-1">
+            <span>登録日</span>
+            <span>：</span>
+            <span>{{job.user.created_at|date}}</span>
+        </div>
+    </div>
+
+    <hr class="my-3 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
+
+    <div class="text-neutral-600 mb-3 px-6">
+        自己紹介
+    </div>
+    <div class="text-neutral-600 line-clamp-6 mb-3 px-6">
+        {{job.user.employer.intro}}
+    </div>
+
+</div>

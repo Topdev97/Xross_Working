@@ -1,0 +1,154 @@
+
+{% load static %}
+{% load filters %}
+
+
+<div class="job-item relative px-3 md:px-10 pt-12 pb-3 border-t-2 border-t-gray-300 cursor-pointer hover:bg-gray-100">
+    <div class="job-item-header flex justify-between mb-3 ">
+        <a href="/jobs/{{data.id}}">
+            <h6 class="text-neutral-800 hover:text-green-700 text-xl line-clamp-1 transition-all font-semibold">{{data.title}}</h6>
+        </a>
+    </div>
+    
+    {% if user.is_authenticated %}    
+        {% if user.user_type == "employee" %}
+            {% if data.proposal_status == 0 %}
+                <a class="absolute top-3 left-3 px-3 py-0 rounded-full border-2 text-warning-700 border-warning-600 flex items-center justify-center cursor-pointer hover:bg-gray-200">
+                    応募中
+                </a>
+            {% endif %}
+            {% if data.proposal_status == 1 %}
+                <a class="absolute top-3 left-3 px-3 py-0 rounded-full border-2 text-primary-700 border-primary-600 flex items-center justify-center cursor-pointer hover:bg-gray-200">
+                    応募済み
+                </a>
+            {% endif %}
+            
+            {% if data.proposal_status == 2 %}
+                <a class="absolute top-3 left-3 px-3 py-0 rounded-full border-2 text-green-700 border-green-600 flex items-center justify-center cursor-pointer hover:bg-gray-200">
+                    契約
+                </a>
+            {% endif %}
+            
+            {% if data.proposal_status == 3 %}
+                <a class="absolute top-3 left-3 px-3 py-0 rounded-full border-2 text-slate-700 border-slate-600 flex items-center justify-center cursor-pointer hover:bg-gray-200">
+                    辞退
+                </a>
+            {% endif %}
+            
+        {% endif %}
+
+        <div  class="absolute top-3 right-3 flex items-center space-x-1">
+            <div>
+                <form></form>
+                <form  action="/jobs/{{data.id}}/like" method="POST">
+                    {% csrf_token %}
+                    
+                    <input type="hidden" name="redirect" value="{{request.path}}" />
+                    <button type="submit" class="w-8 h-8 rounded-full border-2 border-green-600 flex items-center justify-center cursor-pointer hover:bg-gray-200">
+                        {% if data.is_like %}
+                            <i class="fas fa-thumbs-up text-green-600"></i>
+                        {% else %}
+                            <i class="far fa-thumbs-up text-green-600"></i>
+                        {% endif %}
+                    </button>
+                </form>
+            </div>
+            <div>
+                <form></form>
+                <form  action="/jobs/{{data.id}}/favourite" method="POST">
+                    {% csrf_token %}
+                    
+                    <input type="hidden" name="redirect" value="{{request.path}}" />
+                    <button type="submit" class="w-8 h-8 rounded-full border-2 border-green-600 flex items-center justify-center cursor-pointer hover:bg-gray-200">
+                        {% if data.is_favourite %}
+                            <i class="fas fa-heart text-green-600"></i>
+                        {% else %}
+                            <i class="far fa-heart text-green-600"></i>
+                        {% endif %}
+                    </button>
+                </form>
+            </div>
+            
+            <div>
+                {% if user.user_type == "employer" %}
+                    {% if data.user.id == user.id %}
+                        <a href="/messages/employer/{{data.id}}" class="w-8 h-8 rounded-full border-2 border-green-600 flex items-center justify-center cursor-pointer hover:bg-gray-200">
+                            <i class="fas fa-comments text-green-600"></i>
+                        </a>
+                        {% if data.message_count > 0 %}
+                            <span
+                                class="absolute right-1 top-1 text-xs bg-red-500 text-white font-medium px-2 shadow-lg rounded-full">
+                                {{request.session.message_count}}
+                            </span>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    {% if data.proposal_status != 3  %}
+                        <a href="/messages/employee/{{data.id}}" class="w-8 h-8 rounded-full border-2 border-green-600 flex items-center justify-center cursor-pointer hover:bg-gray-200">
+                            <i class="fas fa-comments text-green-600"></i>
+                        </a>
+                        {% if data.message_count > 0 %}
+                            <span
+                                class="absolute right-1 top-1 text-xs bg-red-500 text-white font-medium px-2 shadow-lg rounded-full">
+                                {{data.message_count}}
+                            </span>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            </div>
+        
+        </div>
+    {% endif %}
+    
+
+    <div class="flex items-center flex-wrap mb-3 text-neutral-600">
+        <div class="space-x-1 mr-3">
+            <span class="whitespace-nowrap font-semibold">月額単価</span> <span>:</span> 
+            {% if data.price_min != data.price_max  %}
+            <span>{{data.price_min}}万円</span>
+            <span>〜</span>
+            <span>{{data.price_max}}万円</span>
+            {% else %}
+            <span>{{data.price_min}}万円</span>
+            {% endif %}
+        </div>
+        <div class="space-x-1 mr-3">
+            <span class="whitespace-nowrap font-semibold">作業場所</span> <span>:</span> <span class="whitespace-nowrap">{{data.work_at.name}}</span> <span>/</span> <span class="whitespace-nowrap">{{data.work_type.name}}</span>
+        </div>
+    </div>
+
+    <div class="text-neutral-600 line-clamp-3 mb-3">
+        {{data.comment |safe}}
+    </div>
+
+    <div class=" text-neutral-600 space-x-3 mb-3 text-sm">
+        {% for skill in data.skills %}        
+            <span class="px-3 py-0.5 bg-slate-200 rounded-full">{{skill.skill.name}}</span>
+        {% endfor %}
+    </div>
+
+    <div class="sm:flex items-center justify-between mb-3 text-neutral-600">
+        <div class="flex items-center flex-wrap">
+            <img class="block h-[30px] w-[30px] shadow-lg rounded-full mr-3" src="{% static 'uploads/avatars' %}/{{data.user.avatar}}" alt="Contact Person" />
+                
+            <div class="space-x-1 mr-3">
+                <span class="whitespace-nowrap uppercase"><a href="/employers/{{data.user.id}}" class="hover:text-primary hover:underline" >{{data.user.username}}</a></span>
+            </div>
+            <div class="space-x-1 mr-3">
+                (<span class="whitespace-nowrap">{{data.user.employer.company_name}}</span>)
+            </div>
+        </div>
+        <div class="flex items-center mt-3 sm:mt-0 justify-end flex-wrap">      
+            <div class="space-x-1 mr-3">
+                <span class="whitespace-nowrap font-semibold"><i class="far fa-thumbs-up text-lg "></i></span>
+                <span class="whitespace-nowrap"> </span>
+                <span class="whitespace-nowrap">{{data.like_count}}</span>
+            </div>
+            <div class="space-x-1 mr-3">
+                <span class="whitespace-nowrap font-semibold"><i class="fa fa-feather text-lg "></i></span>
+                <span class="whitespace-nowrap"> </span>
+                <span class="whitespace-nowrap">{{data.updated_at|str2dateStr}}</span>
+            </div>
+        </div>        
+    </div>
+</div>

@@ -1,0 +1,148 @@
+{% extends 'account/_base.html' %} 
+
+{% load i18n %} 
+{% block title %} ユーザー登録 {% endblock title %} 
+{% block description %} {% endblock description %} 
+
+{% block content %}
+
+<div class="w-full max-w-[768px] mx-auto my-10">
+
+    <div class="p-6 md:py-12  md:border-2 border-neutral-300 rounded-md">
+        <h1 class="text-2xl text-center font-bold  text-neutral-700 mb-4">基本情報登録</h1>
+        <hr class="my-3 md:my-12 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
+        <form method="post">
+            {% csrf_token %} 
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-3">
+                <div class="col-span-2">
+                    {% include 'components/input.html' with field=form.first_name%}
+                </div>
+
+                <div class="col-span-2">
+                    {% include 'components/input.html' with field=form.last_name%}
+                </div>
+                <div class="col-span-2">
+                    {% include 'components/input.html' with field=form.first_name_hiragana%}
+                </div>
+
+                <div class="col-span-2">
+                    {% include 'components/input.html' with field=form.last_name_hiragana%}
+                </div>
+                <div class="col-span-2">
+                    {% include 'components/date-picker.html' with field=form.birthday%}
+                </div>
+                <div class="col-span-2">
+                    {% include 'components/input.html' with field=form.phone%}
+                </div>
+                <div class="col-span-2 sm:col-span-4">
+                    {% include 'components/select.html' with field=form.prefecture%}
+                </div>
+                <div class="col-span-2 sm:col-span-4">
+                    {% include 'components/input.html' with field=form.address%}
+                </div>
+            </div> 
+
+            <div>
+
+                <div class="mb-[0.25rem] block min-h-[1.5rem] pl-[1.5rem]">
+                    <input
+                      class="relative float-left -ml-[1.5rem] mr-1 mt-0.5 h-5 w-5 appearance-none rounded-full border-2 border-solid border-neutral-300 before:pointer-events-none before:absolute before:h-4 before:w-4 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] after:absolute after:z-[1] after:block after:h-4 after:w-4 after:rounded-full after:content-[''] checked:border-primary checked:before:opacity-[0.16] checked:after:absolute checked:after:left-1/2 checked:after:top-1/2 checked:after:h-[0.625rem] checked:after:w-[0.625rem] checked:after:rounded-full checked:after:border-primary checked:after:bg-primary checked:after:content-[''] checked:after:[transform:translate(-50%,-50%)] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:border-primary checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:border-neutral-600 dark:checked:border-primary dark:checked:after:border-primary dark:checked:after:bg-primary dark:focus:before:shadow-[0px_0px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:border-primary dark:checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca]"
+                      type="radio"
+                      name="{{form.user_type.name}}"
+                      value="employee"
+                      id="{{form.user_type.name}}_1"
+                      {% if form.user_type.value == "employee"  %}checked{% else %}{% endif %}
+                      />
+                    <label
+                      class="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
+                      for="{{form.user_type.name}}_1">
+                      受注者
+                    </label>
+                </div>
+                    
+                <div class="mb-[0.25rem] block min-h-[1.5rem] pl-[1.5rem]">
+                    <input
+                    class="relative float-left -ml-[1.5rem] mr-1 mt-0.5 h-5 w-5 appearance-none rounded-full border-2 border-solid border-neutral-300 before:pointer-events-none before:absolute before:h-4 before:w-4 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] after:absolute after:z-[1] after:block after:h-4 after:w-4 after:rounded-full after:content-[''] checked:border-primary checked:before:opacity-[0.16] checked:after:absolute checked:after:left-1/2 checked:after:top-1/2 checked:after:h-[0.625rem] checked:after:w-[0.625rem] checked:after:rounded-full checked:after:border-primary checked:after:bg-primary checked:after:content-[''] checked:after:[transform:translate(-50%,-50%)] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:border-primary checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:border-neutral-600 dark:checked:border-primary dark:checked:after:border-primary dark:checked:after:bg-primary dark:focus:before:shadow-[0px_0px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:border-primary dark:checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca]"
+                    type="radio"
+                    name="{{form.user_type.name}}"
+                    value="employer"
+                    id="{{form.user_type.name}}_2"
+                    {% if form.user_type.value == "employer"  %}checked{% else %}{% endif %}
+                    />
+                    <label
+                    class="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
+                    for="{{form.user_type.name}}_2">
+                    発注者
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="mt-6 block w-full rounded-full bg-success px-6 pb-2 pt-2.5 font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]">
+                登録
+            </button>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
+
+
+{% block js %}
+
+<script>
+
+    const options = {
+        format: "yyyy-mm-dd",
+        title: "日付を選択してください",
+        monthsFull: [
+            "1月",
+            "2月",
+            "3月",
+            "4月",
+            "5月",
+            "6月",
+            "7月",
+            "8月",
+            "9月",
+            "10月",
+            "11月",
+            "12月",
+        ],
+        monthsShort: [
+            "1月",
+            "2月",
+            "3月",
+            "4月",
+            "5月",
+            "6月",
+            "7月",
+            "8月",
+            "9月",
+            "10月",
+            "11月",
+            "12月",
+        ],
+        weekdaysFull: [
+        "日曜日",
+        "月曜日",
+        "火曜日",
+        "水曜日",
+        "木曜日",
+        "金曜日",
+        "土曜日",
+        ],
+        weekdaysShort: ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"],
+        weekdaysNarrow: ["日", "月", "火", "水", "木", "金", "土"],
+        okBtnText: "確認",
+        clearBtnText: "クリア",
+        cancelBtnText: "キャンセル",
+    }
+
+    const myDatepicker = new te.Datepicker(
+        document.getElementById("date_picker_birthday"),
+        options
+    );
+
+</script>
+{% endblock js %}

@@ -1,0 +1,154 @@
+
+{% extends 'base/_base_message.html' %}
+{% load static %}
+{% load filters %}
+
+{% block title %}
+チャット
+{% endblock title %}
+{% block description %}
+
+{% endblock description %}
+
+
+{% block css %}
+
+<style>
+    .scrollbar-w-2::-webkit-scrollbar {
+        width: 0.25rem;
+        height: 0.25rem;
+    }
+    
+    .scrollbar-track-blue-lighter::-webkit-scrollbar-track {
+        --bg-opacity: 1;
+        background-color: #f7fafc;
+        background-color: rgba(247, 250, 252, var(--bg-opacity));
+    }
+    
+    .scrollbar-thumb-blue::-webkit-scrollbar-thumb {
+        --bg-opacity: 1;
+        background-color: #edf2f7;
+        background-color: rgba(237, 242, 247, var(--bg-opacity));
+    }
+    
+    .scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
+        border-radius: 0.25rem;
+    }
+</style>
+{% endblock css %}
+
+{% block content %}
+
+<main class="absolute top-0 left-0 right-0 bottom-0 w-full h-screen" onload="scrollToBottom()" >
+    <!-- Container for demo purpose -->
+
+    <div class="flex w-full h-full relative">
+        <div id="chat-users" class=" h-full border-r-2 bg-[#f5f7fb] border-r-neutral-300 pt-20" data-te-sidenav-init data-te-sidenav-hidden="false" data-te-sidenav-mode="side" data-te-sidenav-content="#content" data-te-sidenav-transitionDuration="200"
+            data-tesidenav-width="320">
+            <div class="lg:flex flex-col transition-all">
+                <div class="p-3 mb-6  text-neutral-700 cursor-pointer transition-all">
+                    <h6 class="line-clamp-2 text-lg"> </h6>
+                </div>
+
+                <div class="px-3">
+                    最新順
+                </div>
+                <hr class="my-1 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-700 to-transparent opacity-25 dark:opacity-100" />
+ 
+                <div id="lancer-list" class="flex-grow overflow-x-hidden overflow-y-auto space-y-1">
+                    {% for job_item in jobs %}
+                        {% include 'messages/components/employer_item.html' %}
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+        <div id="content" class="w-full h-full pt-20">
+            <!-- component -->
+            <div class="justify-between flex flex-col h-full">
+
+                <div class="flex sm:items-center justify-between  border-b-2 border-gray-200">
+                    <div class="flex justify-between p-3 space-x-3 cursor-pointer transition-all" data-te-sidenav-toggle-ref data-te-target="#user-profile" aria-controls="#user-profile" aria-haspopup="true">
+
+                        <a class="flex items-center justify-center p-3 hover:text-green-500" data-te-sidenav-toggle-ref data-te-target="#chat-users" aria-controls="#chat-users" aria-haspopup="true">
+                            <i class="fa fa-bars w-6 h-6"></i>
+                        </a>
+                        <img class="h-[50px] w-[50px] rounded-full" src="{% static 'uploads/avatars' %}/{{job.user.avatar}}" alt="Contact Person" />
+
+                        <div class="flex-grow">
+                            <div class="space-y-1">
+                                <div class="text-neutral-700 uppercase">{{job.user.username}}</div>
+                                <div class="text-sm text-slate-400">{{job.user.employer.company_name}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="messages" class="flex-grow overflow-y-auto">
+                    <div id="messages_container" class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+                        {% for job_message in job_messages  %}
+                            {% if job_message.sender_id == user.id %}
+                                <div class="chat-message">
+                                    <div class="flex items-end">
+                                        <div class="flex flex-col space-y-2 text-md max-w-6xl mx-2 order-2 items-start">
+                                            <div class="px-4 py-2 rounded-lg  w-full break-all rounded-bl-none bg-gray-200 text-neutral-700">
+                                                {{job_message.message|safe|linebreaks}}
+
+                                                {% if job_message.attachmentfile %}
+                                                    <a href="{% static 'uploads/message_attachment' %}/{{job_message.attachmentfile.storage_id}}" class="text-primary-500 hover:underline underline-offset-1" download>{{job_message.attachmentfile.name}}</a>
+                                                {% endif %}
+                                            </div>
+                                            <div class="text-xs text-neutral-500">
+                                                {{job_message.updated_at}}
+                                            </div>
+                                        </div>
+                                        <img src="{% static 'uploads/avatars' %}/{{user.avatar}}" alt="My profile" class="w-10 h-10 rounded-full shadow-md order-1">
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="chat-message">
+                                    <div class="flex items-end justify-end">
+                                        <div class="flex flex-col space-y-2 text-md max-w-6xl mx-2 order-1 items-end">
+                                            <div class="px-4 py-2 rounded-lg w-full break-all rounded-br-none bg-gray-200 text-neutral-700 ">
+                                                {{job_message.message|safe|linebreaks}}
+                                            </div>
+                                            <div class="text-xs text-neutral-500">
+                                                {{job_message.updated_at}}
+                                            </div>
+                                        </div>
+                                        <img  src="{% static 'uploads/avatars' %}/{{job.user.avatar}}" alt="My profile" class="w-10 h-10 rounded-full shadow-md order-2">
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {% include 'messages/components/message_input.html' %}
+            </div>
+
+        </div>
+
+    </div>
+    <!-- Container for demo purpose -->
+</main>
+
+{% include 'messages/components/employer_profile.html' %}
+<!-- Container for demo purpose -->
+{% endblock content %}
+
+{% block js %}
+<script>
+    $('#messages').animate({
+        easing: "easein",
+        scrollTop: $("#messages_container").height()
+    }, 500);
+
+    $("#attachment").change(function(e){
+        if(e.target.files && e.target.files.length > 0){
+            file = e.target.files[0]
+            $("#attachment_label").html(file.name)
+        }
+    })
+</script>
+{% endblock js %}

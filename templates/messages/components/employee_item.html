@@ -1,0 +1,22 @@
+{% load static %}
+
+<a href="/messages/employer/{{job.id}}/{{user_item.id}}" class="relative flex justify-between p-3 space-x-3 cursor-pointer {%if user_item.id == current_user.id %} bg-[#e6ebf5] {%endif%} hover:bg-[#e6ebf5] transition-all">
+    <img class="h-[50px] w-[50px] rounded-full" src="{% static 'uploads/avatars' %}/{{user_item.avatar}}" alt="Contact Person" />
+
+    <div class="flex-grow">
+        <div class="space-y-1">
+            <div class="text-neutral-700 uppercase">{{user_item.username}}</div>
+            <div class="text-sm text-slate-400">{{user_item.employee.role}}</div>
+        </div>
+    </div>
+
+    {% if user_item.message_count > 0 %}
+        <span
+            class="absolute right-1 top-1 text-xs bg-red-500 text-white font-medium px-2 shadow-lg rounded-full">
+            {{user_item.message_count}}
+        </span>
+    {% endif %}
+    <span class="absolute top-3 right-3 text-sm text-neutral-600"></span>
+</a>
+<hr style="margin-top:0px" class="mb-1 mt-0 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-700 to-transparent opacity-25 dark:opacity-100" />
+ 

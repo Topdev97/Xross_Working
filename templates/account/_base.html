@@ -1,0 +1,76 @@
+{% load static %}
+{% load compress %}
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            XrossPoint | 
+            {% block title %}
+                Home
+            {% endblock title %}
+        </title>
+        
+        <meta name="description" content="{% block description %}{% endblock description %}"/>
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.png' %}" />
+    
+        <link rel="stylesheet" href="{% static 'css/dist/styles.css' %}">    
+        <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    
+        {% block css %}
+        {% endblock css %}
+        
+    
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Mogra&family=Noto+Sans+JP:wght@600&display=swap" rel="stylesheet">
+    
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+        
+        
+    </head>
+    <body class="text-neutral-600">
+        {% include "account/_navbar.html" %}
+
+
+        <div class="max-w-xl mx-auto px-3 mb-3">
+            {% if messages %}        
+                
+                {% for message in messages %}
+                <div class="mb-3 hidden w-full items-center rounded-lg bg-warning-100 px-6 py-5 text-base text-warning-800 data-[te-alert-show]:inline-flex" role="alert" data-te-alert-init data-te-alert-show>
+                    <div>
+                        {{ message }}
+                    </div>
+                    <button type="button" class="ml-auto box-content rounded-none border-none p-1 text-warning-900 opacity-50 hover:text-warning-900 hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none" data-te-alert-dismiss aria-label="Close">
+                        <span
+                        class="w-[1em] focus:opacity-100 disabled:pointer-events-none disabled:select-none disabled:opacity-25 [&.disabled]:pointer-events-none [&.disabled]:select-none [&.disabled]:opacity-25">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            class="h-6 w-6">
+                            <path
+                            fill-rule="evenodd"
+                            d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
+                            clip-rule="evenodd" />
+                        </svg>
+                        </span>
+                    </button>
+                </div>
+                {% endfor %}
+            
+            {% endif %}
+        </div>
+        {% block content %}
+        {% endblock content %}
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>        
+        <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+        {% compress js file %}
+            {% block js %}
+            {% endblock js %}
+        {% endcompress %}
+    </body>
+</html>

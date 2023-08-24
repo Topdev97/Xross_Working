@@ -1,0 +1,102 @@
+{% extends 'admin/_base.html' %}
+{% load static %}
+{% load socialaccount %}
+{% load i18n %}
+
+{% block title %}
+案件情報
+{% endblock title %}
+
+{% block css %}
+{% endblock css %}
+
+
+{% block sub_title %}
+<div class="inline-block ">
+    案件情報
+</div> 
+<a
+    href="{{request.GET.redirect_url}}"    
+    class="inline-block rounded border-2 border-primary px-6 py-1 text-sm font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+    data-te-ripple-init>
+    戻る
+</a>
+{% endblock sub_title %}
+
+{% block breadcrumb %}案件情報 {% endblock breadcrumb %}
+
+
+{% block content %}
+<div class="job-item w-full rounded-xl ">
+    <div class="job-item-header flex justify-between cursor-pointer">
+        <h3 class="text-neutral-800 hover:text-green-700 font-semibold text-xl">{{job.title}}</h3>
+    </div>
+    
+    <hr class="my-6 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
+
+    <div class="job-item-header flex justify-between cursor-pointer mb-3">
+        <h6 class="text-neutral-800 text-xl">仕事の概要</h6>
+    </div>
+
+    <div class="flex items-center flex-wrap text-neutral-600">
+        <div class="flex items-center space-x-1 mr-3 mb-3">
+            <span class="whitespace-nowrap font-semibold">月額単価</span> <span>:</span> 
+            {% if job.price_min != job.price_max  %}
+            <span>{{job.price_min}}万円</span>
+            <span>〜</span>
+            <span>{{job.price_max}}万円</span>
+            {% else %}
+            <span>{{job.price_min}}万円</span>
+            {% endif %}
+        </div>
+        <div class="flex items-center space-x-1 mr-3 mb-3">
+            <span class="whitespace-nowrap font-semibold">作業場所</span> <span>:</span> <span class="whitespace-nowrap">{{job.work_at.name}}</span> <span>/</span> <span class="whitespace-nowrap">{{job.work_type.name}}</span>
+        </div>
+        <div class="flex items-center space-x-1 mr-3 mb-3">
+            <span class="whitespace-nowrap font-semibold">稼働率</span> <span>:</span> <span class="whitespace-nowrap">{{job.work_hour.name}}</span> 
+        </div>
+    </div>
+    
+    <div class="flex items-center flex-wrap mb-3 text-neutral-600">
+        <div class="flex items-center space-x-1 mr-3 mb-3">
+            <span class="whitespace-nowrap font-semibold">応募期限</span> 
+            <span>:</span> 
+            <span class="whitespace-nowrap">{{job.applicating_until}}</span>
+        </div>
+        <div class="flex items-center space-x-1 mr-3 mb-3">
+            <span class="whitespace-nowrap font-semibold">契約期間</span> 
+            <span>:</span> 
+            <span class="whitespace-nowrap">{{job.pj_start_date}}</span>
+            <span>~</span> 
+            <span class="whitespace-nowrap">{{job.pj_end_date}}</span>
+        </div>
+    </div>
+
+    <hr class="mt-6 mb-6 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
+
+    <div class="job-item-header flex justify-between cursor-pointer mb-3">
+        <h6 class="text-neutral-800 text-xl">仕事の詳細</h6>
+    </div>
+    <div class="text-neutral-600 text-lg mb-3 leading-8">
+        {{job.comment |safe}}
+    </div>
+
+
+
+    <hr class="my-6 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
+
+    <div class="job-item-header flex justify-between cursor-pointer mb-3">
+        <h6 class="text-neutral-800 text-xl">スキル</h6>
+    </div>
+
+    <div class=" text-neutral-600 space-x-3 mb-3 text-sm">
+        {% for skill in skills %}
+            <span class="px-3 py-0.5 bg-slate-200 rounded-full">{{skill.skill.name}}</span>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock content %}
+
+{% block js %}
+{% endblock js %}

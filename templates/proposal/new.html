@@ -1,0 +1,100 @@
+{% extends 'base/_base.html' %}
+{% load static %}
+{% load filters %}
+
+{% block title %}
+新しい提案書を作成する
+{% endblock title %}
+
+{% block description %}
+
+{% endblock description %}
+
+
+{% block css %}
+<style>
+    
+</style>
+{% endblock css %}
+
+{% block content %}
+
+<!-- Container for demo purpose -->
+<div class="bg-white w-full block  lg:flex pt-10  lg:pt-20 pb-10">
+    <div class="lg:w-3/4 px-6">
+        <div class="job-item w-full rounded-xl ">
+            <div class="job-item-header flex justify-between cursor-pointer">
+                <a href="/jobs/{{job.id}}" class="text-neutral-800 hover:text-green-700 font-semibold text-2xl lg:text-3xl">{{job.title}}</a>
+            </div>
+            
+            <hr class="my-6 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
+
+            <div class="job-item-header flex justify-between cursor-pointer mb-3">
+                <h6 class="text-neutral-800 text-xl">仕事の概要</h6>
+            </div>
+
+            <div class="flex items-center flex-wrap text-neutral-600">
+                <div class="flex items-center space-x-1 mr-3 mb-3">
+                    <span class="whitespace-nowrap font-semibold">月額単価</span> <span>:</span> 
+                    {% if job.price_min != job.price_max  %}
+                    <span>{{job.price_min}}万円</span>
+                    <span>〜</span>
+                    <span>{{job.price_max}}万円</span>
+                    {% else %}
+                    <span>{{job.price_min}}万円</span>
+                    {% endif %}
+                </div>
+                <div class="flex items-center space-x-1 mr-3 mb-3">
+                    <span class="whitespace-nowrap font-semibold">作業場所</span> <span>:</span> <span class="whitespace-nowrap">{{job.work_at.name}}</span> <span>/</span> <span class="whitespace-nowrap">{{job.work_type.name}}</span>
+                </div>
+                <div class="flex items-center space-x-1 mr-3 mb-3">
+                    <span class="whitespace-nowrap font-semibold">稼働率</span> <span>:</span> <span class="whitespace-nowrap">{{job.work_hour.name}}</span> 
+                </div>
+            </div>
+            
+            <hr class="mt-6 mb-6 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
+            
+            <form method="POST" class="block">
+                {% csrf_token %} 
+    
+                <div class="grid grid-cols-2 gap-4 mb-3">
+                    <div class="col-span-2">
+                        {% include 'components/textarea.html' with field=form.comment%}
+                    </div>
+    
+                    <div class="col-span-2">
+                        {% include 'components/price.html' with field=form.price%}
+                    </div>
+                </div>
+                    
+                <div class="flex items-center flex-wrap text-neutral-600">
+                    <div class="flex items-center space-x-1 mr-3 mb-3">
+                        <span class="whitespace-nowrap">現在保有しているポイント</span> <span>:</span> <span class="whitespace-nowrap font-semibold">{{user.points|add:user.paypoints}} pt</span>
+                    </div>
+                    <div class="flex items-center space-x-1 mr-3 mb-3">
+                        <span class="whitespace-nowrap">必要なポイント</span> <span>:</span> <span class="whitespace-nowrap font-semibold">1pt</span>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center mt-3">
+                    <button type="submit" class="inline-block rounded-full bg-emerald-600 px-6 pb-2 pt-2.5 font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]">
+                        応募する
+                    </button>
+                </div>
+            </form>
+          
+        </div>
+    </div>
+    <div class="w-full lg:w-1/4 px-6">
+        {% include 'job/components/job_employer_card.html' %}
+    </div>    
+</div>
+
+<!-- Container for demo purpose -->
+{% endblock content %}
+
+{% block js %}
+<script>
+    
+</script>
+{% endblock js %}

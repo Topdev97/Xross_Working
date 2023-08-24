@@ -1,0 +1,144 @@
+
+{% extends "base/_base.html" %}
+{% load static %}
+
+{% block title %}
+職務経歴を編集する
+{% endblock title %}
+{% block description %}
+
+{% endblock description %}
+
+{% block content %}
+
+<section class="w-full justify-between px-6 md:flex ">
+    <div class=" h-auto hidden  lg:w-1/5  md:block ">
+        {% include 'custom_account/account_sidebar.html' %}
+    </div>
+    <div class="block mb-2 md:hidden">
+        <div class="inline-block">
+            <a href="{% url 'accounts_menu' %}" class="flex text-success items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                </svg>                      
+                戻る
+            </a>
+        </div>        
+    </div>
+    <div style="min-height: calc(100vh - 200px)" class="md:ml-2 h-fit w-full  lg:w-4/5 block rounded-lg bg-white p-6  border-neutral-300 border-solid border-2 dark:bg-neutral-700">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {% if form.non_field_errors %}
+                <div class="mb-4 rounded-lg bg-danger-100 px-6 py-5 text-base text-danger-700" role="alert"> 
+                    {{form.non_field_errors}}
+                </div>                
+            {% endif %} 
+
+            <div class="grid grid-cols-2 gap-4 mb-3">
+                    
+                <div class='col-span-2'>
+                    <div class="w-full h-[50px] text-center flex items-center justify-center text-lg">                                                
+                        経歴更新
+                    </div>
+                </div>
+
+                <div class="col-span-2">
+                    {% include 'components/input.html' with field=form.company%}
+                </div>
+                <div class="col-span-2">
+                    {% include 'components/input.html' with field=form.role%}
+                </div>                    
+                <div class="col-span-2">
+                    {% include 'components/textarea.html' with field=form.comment%}
+                </div>
+                <div class="col-span-1">
+                    {% include 'components/date-picker.html' with field=form.start_date%}
+                </div>
+                <div class="col-span-1">
+                    {% include 'components/date-picker.html' with field=form.end_date%}
+                </div>  
+            </div> 
+            
+
+            <div class="mt-10 flex justify-end space-x-3">
+                <button type="submit" class="inline-block rounded-full min-w-[120px] border-2 border-success py-1.5 px-3  text-md text-success transition duration-150 ease-in-out hover:border-success-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-success-600 focus:border-success-600 focus:text-success-600 focus:outline-none focus:ring-0 active:border-success-700 active:text-success-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10">
+                    更新
+                </button>
+                <a href="/accounts/experience" 
+                    class="inline-block rounded-full border-2 min-w-[120px] text-center border-primary-100 px-3 py-1.5 text-md text-primary-700 transition duration-150 ease-in-out hover:border-primary-accent-100 hover:bg-neutral-500 hover:bg-opacity-10 focus:border-primary-accent-100 focus:outline-none focus:ring-0 active:border-primary-accent-200 dark:text-primary-100 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10">
+                    戻る
+                </a>
+            </div>
+        </form>
+    </div>
+
+</section>
+
+{% endblock content %}
+
+
+{% block js %}
+
+<script>
+    
+    const options = {
+        format: "yyyy-mm-dd",
+        title: "日付を選択してください",
+        monthsFull: [
+            "1月",
+            "2月",
+            "3月",
+            "4月",
+            "5月",
+            "6月",
+            "7月",
+            "8月",
+            "9月",
+            "10月",
+            "11月",
+            "12月",
+        ],
+        monthsShort: [
+            "1月",
+            "2月",
+            "3月",
+            "4月",
+            "5月",
+            "6月",
+            "7月",
+            "8月",
+            "9月",
+            "10月",
+            "11月",
+            "12月",
+        ],
+        weekdaysFull: [
+        "日曜日",
+        "月曜日",
+        "火曜日",
+        "水曜日",
+        "木曜日",
+        "金曜日",
+        "土曜日",
+        ],
+        weekdaysShort: ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"],
+        weekdaysNarrow: ["日", "月", "火", "水", "木", "金", "土"],
+        okBtnText: "確認",
+        clearBtnText: "クリア",
+        cancelBtnText: "キャンセル",
+    }
+
+    const myDatepicker_start_date = new te.Datepicker(
+        document.getElementById("date_picker_start_date"),
+        options
+    );
+
+    const myDatepicker_end_date = new te.Datepicker(
+        document.getElementById("date_picker_end_date"),
+        options
+    );
+
+
+</script>
+{% endblock js %}

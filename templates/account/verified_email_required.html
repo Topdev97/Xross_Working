@@ -1,0 +1,38 @@
+{% extends 'account/_base.html' %}
+{% load static %}
+{% load socialaccount %}
+{% load i18n %}
+{% block title %}
+{% trans "Verify Your E-mail Address" %}
+{% endblock title %}
+
+{% block content %}
+<div class="px-3">
+
+    {% comment %} <img src="{% static 'logo.png' %}" class="w-full max-w-xl mt-6 mx-auto aspect-auto" alt=""> {% endcomment %}
+    <div class="max-w-xl mx-auto my-10 bg-white p-8  text-center">
+        <h2 class="md:text-3xl font-bold mb-10">{% trans "Verify Your E-mail Address" %}</h2>
+
+        {% url 'account_email' as email_url %}
+
+        <p class="py-3">
+            確認のために電子メールを送信しました。 提供されたリンクに従って、サインアップ プロセスを完了します。 メインの受信トレイに確認メールが届かない場合は、スパム フォルダを確認してください。 数分経っても確認メールが届かない場合は、お問い合わせください。
+        </p>
+
+        <p class="py-3">
+            サイトのこの部分では、お客様が本人であることを確認する必要があります。 この目的のために、電子メール アドレスの所有権を確認する必要があります。
+        </p>
+
+        <p class="py-3">
+            確認のために電子メールを送信しました。 その電子メール内のリンクをクリックしてください。 メインの受信トレイに確認メールが届かない場合は、スパム フォルダを確認してください。 それ以外の場合は、数分以内に受信しない場合はご連絡ください。
+        </p>
+
+        <p class="py-3">
+            <strong>注意:</strong>
+            メールアドレスは引き続き<a class="text-blue-400" href="{{ email_url }}">変更</a>できます
+        </p>
+
+    </div>
+</div>
+
+{% endblock %}

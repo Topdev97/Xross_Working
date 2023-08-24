@@ -1,0 +1,55 @@
+{% load static %}
+
+<div class="hidden lg:block w-full max-w-[250px] mx-auto space-y-3  text-neutral-600">
+    <img class="h-[100px] w-[100px] mx-auto rounded-full shadow" src="{% static 'uploads/avatars' %}/{{job.user.avatar}}" alt="Contact Person" />
+
+    <div class="space-y-1 text-center">
+        <div class="text-lg">
+            <span class="whitespace-nowrap uppercase"><a href="/employers/{{job.user.id}}" class="hover:text-primary hover:underline" >{{job.user.username}}</a></span>
+        </div>
+        <div class="">
+            {{job.user.employer.company_name}}
+        </div>
+    </div>
+    <hr class="my-12 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
+    
+    <div class="flex items-center space-x-1">
+        <span>場所</span>
+        <span>：</span>
+        <span>{{job.user.prefecture.name}}</span>
+    </div>
+    <div class="flex items-center space-x-1">
+        <span>登録日</span>
+        <span>：</span>
+        <span>{{job.user.created_at|date}}</span>
+    </div>
+</div>
+
+
+<hr class="lg:hidden my-6 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
+
+<div class="lg:hidden job-item-header flex justify-between cursor-pointer mb-3">
+    <h6 class="text-neutral-800 text-xl">クライアント情報</h6>
+</div>
+
+<div class="lg:hidden mb-3 text-neutral-600 space-y-3">
+    <div class="flex items-center flex-wrap">
+        <img class="block h-[80px] w-[80px] shadow-lg rounded-full mr-3" src="{% static 'uploads/avatars' %}/{{job.user.avatar}}" alt="Contact Person" />
+            
+        <div>
+            <div class="space-x-1 mr-3">
+                <span class="whitespace-nowrap uppercase"><a href="/employers/{{job.user.id}}" class="hover:text-primary hover:underline" >{{job.user.username}}</a></span>
+            </div>
+            <div class="space-x-1 mr-3">
+                (<span class="whitespace-nowrap">{{job.user.employer.company_name}}</span>)
+            </div>
+        </div>
+    </div>
+    <div class="flex items-center flex-wrap">        
+        <div class="space-x-1 mr-3">
+            <span class="whitespace-nowrap font-semibold">掲載日</span>
+            <span class="whitespace-nowrap">:</span>
+            <span class="whitespace-nowrap">{{job.updated_at}}</span>
+        </div>
+    </div>        
+</div>

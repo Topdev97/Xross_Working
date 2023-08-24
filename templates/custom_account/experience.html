@@ -1,0 +1,242 @@
+
+{% extends "base/_base.html" %}
+{% load static %}
+
+{% block title %}
+職歴
+{% endblock title %}
+{% block description %}
+
+{% endblock description %}
+
+{% block content %}
+
+<section class="w-full justify-between px-6 md:flex ">
+    <div class=" h-auto hidden  lg:w-1/5  md:block ">
+        {% include 'custom_account/account_sidebar.html' %}
+    </div>
+    <div class="block mb-2 md:hidden">
+        <div class="inline-block">
+            <a href="{% url 'accounts_menu' %}" class="flex text-success items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                </svg>                      
+                戻る
+            </a>
+        </div>        
+    </div>
+    <div style="min-height: calc(100vh - 200px)" class="md:ml-2 h-fit w-full  lg:w-4/5 block rounded-lg bg-white p-6  border-neutral-300 border-solid border-2 dark:bg-neutral-700">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {% if form.non_field_errors %}
+                <div class="mb-4 rounded-lg bg-danger-100 px-6 py-5 text-base text-danger-700" role="alert"> 
+                    {{form.non_field_errors}}
+                </div>                
+            {% endif %} 
+
+            <div class="grid grid-cols-2 gap-4 mb-3">
+                    
+                <div class='col-span-2'>
+                    <div class="w-full h-[100px] text-center flex items-center justify-center text-lg">                                                
+                        <a href="{% url 'accounts_experience_create' %}" class="inline-block rounded-full min-w-[120px] border-2 border-success py-1.5 px-3  text-sm text-success transition duration-150 ease-in-out hover:border-success-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-success-600 focus:border-success-600 focus:text-success-600 focus:outline-none focus:ring-0 active:border-success-700 active:text-success-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10">
+                            <i class="fa fa-plus"></i>
+                            新しい経歴追加
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-span-2">
+                    
+                    <div class="flex flex-col overflow-x-auto">
+                        <div class="">
+                            <div class="inline-block min-w-full py-2">
+                                <div class="overflow-x-auto">
+                                    <table class="min-w-full text-left text-sm font-light">
+                                        <thead class="border-b font-medium dark:border-neutral-500">
+                                            <tr>
+                                                <th scope="col" class="px-6 py-4">#</th>
+                                                <th scope="col" class="px-6 py-4 whitespace-nowrap">会社名</th>
+                                                <th scope="col" class="px-6 py-4 whitespace-nowrap">役割</th>
+                                                <th scope="col" class="px-6 py-4 whitespace-nowrap w-64">From</th>
+                                                <th scope="col" class="px-6 py-4 whitespace-nowrap w-64">To</th>
+                                                <th scope="col" class="px-6 py-4 whitespace-nowrap w-64">#</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            {% if experiences.count > 0 %}
+                                                {% for data in experiences %}                               
+                                                        
+                                                <tr class="border-b dark:border-neutral-500 ">
+                                                    <td class="whitespace-nowrap px-6 py-4 font-medium">{{forloop.counter}}</td>
+                                                    <td class="whitespace-nowrap px-6 py-4">{{data.company}}</td>
+                                                    <td class="whitespace-nowrap px-6 py-4">{{data.role}}</td>
+                                                    <td class="whitespace-nowrap px-6 py-4  w-64">{{data.start_date}}</td>
+                                                    <td class="whitespace-nowrap px-6 py-4 w-64">{{data.end_date}}</td>
+                                                    <td class="whitespace-nowrap px-6 py-4 w-64">
+                                                        <a
+                                                            href="{% url 'accounts_experience_update' %}?id={{data.id}}"
+                                                            class="inline-block rounded-full border-2 border-primary px-6 py-1 font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+                                                            data-te-ripple-init>
+                                                            編集
+                                                        </a>
+                                                        <button
+                                                            type="button"
+                                                            class="delete_btn inline-block rounded-full border-2 border-danger px-6 py-1 font-medium uppercase leading-normal text-danger transition duration-150 ease-in-out hover:border-danger-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-danger-600 focus:border-danger-600 focus:text-danger-600 focus:outline-none focus:ring-0 active:border-danger-700 active:text-danger-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+                                                            data-id="{{data.id}}"
+                                                            data-te-ripple-init
+                                                            data-te-ripple-color="light">
+                                                        削除
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            {% else %}                                    
+                                                <tr class="border-b dark:border-neutral-500 ">
+                                                    <td colspan="5" class="whitespace-nowrap text-center px-6 py-8 text-neutral-500 font-medium">データが存在しません。</td>                                        
+                                                </tr>
+                                            {% endif %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            
+        </form>
+    </div>
+
+</section>
+
+<!--Verically centered scrollable modal-->
+
+<form method="POST" action="{% url 'accounts_experience_delete' %}" >
+    {% csrf_token %}
+    <div
+    data-te-modal-init
+    class="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none"
+    id="deleteModal"
+    tabindex="-1"
+    aria-labelledby="deleteModal"
+    aria-modal="true"
+    role="dialog">
+
+        <div
+            data-te-modal-dialog-ref
+            class="pointer-events-none relative flex min-h-[calc(100%-1rem)] w-auto translate-y-[-50px] items-center opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:min-h-[calc(100%-3.5rem)] min-[576px]:max-w-[500px]">
+            <div
+            class="pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-lg outline-none dark:bg-neutral-600">
+                <div
+                    class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 border-opacity-100 p-4 dark:border-opacity-50">
+                    <!--Modal title-->
+                    <h5
+                    class="text-xl font-medium leading-normal text-neutral-800 dark:text-neutral-200"
+                    id="deleteModalLabel">
+                    Xross Point
+                    </h5>
+                    <!--Close button-->
+                    <button
+                    type="button"
+                    class="box-content rounded-none border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
+                    data-te-modal-dismiss
+                    aria-label="Close">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="h-6 w-6">
+                        <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    </button>
+                </div>
+
+                <!--Modal body-->
+                <div class="relative p-4">
+                    <p>
+                        データが削除された後は復元できません。
+                    </p>
+                    <p>
+                        同意しますか？
+                    </p>
+                    <br />
+                    <input id="object_id" type="hidden" name="id" value="" />
+                    <div class="mb-[0.125rem] flex items-center min-h-[1.5rem] space-x-2">
+                        <input
+                        class="border-gray-300 rounded h-5 w-5"
+                        type="checkbox"
+                        name="agree"
+                        value="agree"
+                        id="agreeCheck" />
+                        <label
+                        class="block pl-[0.15rem] hover:cursor-pointer"
+                        for="agreeCheck">
+                        同意します。
+                        </label>
+                    </div>
+                    
+                </div>
+                
+                <button type="submit" style="hidden" id="submit_btn"> </button>
+                <!--Modal footer-->
+                <div
+                class="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4 dark:border-opacity-50">
+                
+                <button
+                    type="button"
+                    id="ok_btn"
+                    class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                    data-te-ripple-init
+                    data-te-ripple-color="light">
+                    確認
+                </button>
+
+                <button
+                    type="button"
+                    class="ml-1 inline-block rounded bg-primary-100 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-primary-700 transition duration-150 ease-in-out hover:bg-primary-accent-100 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200"
+                    data-te-modal-dismiss
+                    data-te-ripple-init
+                    data-te-ripple-color="light">
+                    キャンセル
+                </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock content %}
+
+
+{% block js %}
+
+<script>
+    $(document).ready(function(){
+        $(".delete_btn").click(function(){
+
+            id = $(this).data("id")
+            
+            $("#object_id").val(id)
+
+            const modal = new te.Modal($("#deleteModal"))
+            modal.show()
+        })
+
+        $("#ok_btn").click(function(){
+            if ($("#agreeCheck").is(':checked')) {
+                $("#submit_btn").click()
+            } else {
+                alert("削除に同意する必要があります。")
+            }
+        })
+
+    })
+</script>
+{% endblock js %}

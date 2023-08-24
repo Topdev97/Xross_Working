@@ -1,0 +1,209 @@
+
+{% extends "base/_base.html" %}
+{% load static %}
+
+{% block title %}
+新しい投稿を登録する
+{% endblock title %}
+{% block description %}
+
+{% endblock description %}
+
+{% block css %}
+    <style>
+        .tox .tox-promotion, .tox-statusbar {
+            display: none !important;
+        }
+        
+        .tox .tox-editor-header{
+            display: block !important;
+        }
+    </style>
+{% endblock css %}
+
+{% block content %}
+
+<section class="w-full justify-between px-6 md:flex ">
+    <div class=" h-auto hidden  lg:w-1/5  md:block ">
+        {% include 'custom_account/account_sidebar.html' %}
+    </div>
+    <div class="block mb-2 md:hidden">
+        <div class="inline-block">
+            <a href="{% url 'accounts_menu' %}" class="flex text-success items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                </svg>                      
+                戻る
+            </a>
+        </div>    
+        <h2 class="text-center text-lg">
+            基本情報
+        </h2>       
+    </div>
+    <div style="min-height: calc(100vh - 200px)" class="md:ml-2 h-fit w-full  lg:w-4/5 block rounded-lg bg-white p-6  border-neutral-300 border-solid border-2 dark:bg-neutral-700">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {% if form.non_field_errors %}
+                <div class="mb-4 rounded-lg bg-danger-100 px-6 py-5 text-base text-danger-700" role="alert"> 
+                    {{form.non_field_errors}}
+                </div>                
+            {% endif %} 
+
+            <div class="text-center text-xl mb-3">
+                新規案件作成
+            </div>
+
+            <div class="grid grid-cols-10 gap-4 mb-3">
+                <div class="col-span-10">
+                    {% include 'components/input.html' with field=form.title %}
+                </div>
+                <div class="col-span-10">                     
+                    {% include 'components/textarea.html' with field=form.comment %}
+                </div>
+                
+                
+                <div class="col-span-10">
+                    {% include 'components/select.html' with field=form.category %}
+                </div>
+                
+                <div class="col-span-10">
+                    {% include 'components/multi-select.html' with field=form.skill %}
+                </div>
+
+                <div class="col-span-10">
+                    {% include 'components/select.html' with field=form.work_at %}
+                </div>
+
+                <div class="col-span-5">
+                    {% include 'components/select.html' with field=form.work_hour %}
+                </div>
+
+                <div class="col-span-5">
+                    {% include 'components/select.html' with field=form.work_type %}
+                </div>
+
+                <div class="col-span-2">
+                    {% include 'components/price.html' with field=form.price_min %}
+                </div>
+                <div class="col-span-2">
+                    {% include 'components/price.html' with field=form.price_max %}
+                </div>
+                
+                <div class="col-span-6">
+                </div>
+                
+                <div class="col-span-4">
+                    {% include 'components/date-picker.html' with field=form.applicating_until %}
+                </div>
+
+                <div class="col-span-3">
+                    {% include 'components/date-picker.html' with field=form.pj_start_date %}
+                </div>
+
+                <div class="col-span-3">
+                    {% include 'components/date-picker.html' with field=form.pj_end_date %}
+                </div>
+
+            </div>
+            
+
+            <div class="mt-10 flex justify-end">
+                <button type="submit" class="inline-block rounded-full min-w-[120px] border-2 border-success py-1.5 px-3  text-md text-success transition duration-150 ease-in-out hover:border-success-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-success-600 focus:border-success-600 focus:text-success-600 focus:outline-none focus:ring-0 active:border-success-700 active:text-success-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10">
+                    登録
+                </button>
+            </div>
+        </form>
+    </div>
+
+</section>
+
+{% endblock content %}
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    
+
+{% block js %}
+
+<script>
+    
+    tinymce.init({
+        selector: '#comment',
+        setup: function (editor) {
+            editor.on('init', function (e) {
+                editor.setContent("");
+            });
+            editor.on('change', function() {
+                var content = editor.getContent(); // get the editor content
+                $("#comment").html(content)
+            });
+
+        }
+    });
+      
+    
+    const options = {
+        format: "yyyy-mm-dd",
+        title: "日付を選択してください",
+        monthsFull: [
+            "1月",
+            "2月",
+            "3月",
+            "4月",
+            "5月",
+            "6月",
+            "7月",
+            "8月",
+            "9月",
+            "10月",
+            "11月",
+            "12月",
+        ],
+        monthsShort: [
+            "1月",
+            "2月",
+            "3月",
+            "4月",
+            "5月",
+            "6月",
+            "7月",
+            "8月",
+            "9月",
+            "10月",
+            "11月",
+            "12月",
+        ],
+        weekdaysFull: [
+        "日曜日",
+        "月曜日",
+        "火曜日",
+        "水曜日",
+        "木曜日",
+        "金曜日",
+        "土曜日",
+        ],
+        weekdaysShort: ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"],
+        weekdaysNarrow: ["日", "月", "火", "水", "木", "金", "土"],
+        okBtnText: "確認",
+        clearBtnText: "クリア",
+        cancelBtnText: "キャンセル",
+    }
+
+    const datepicker1 = new te.Datepicker(
+        document.getElementById("date_picker_applicating_until"),
+        options
+    );
+    
+    const datepicker2 = new te.Datepicker(
+        document.getElementById("date_picker_pj_start_date"),
+        options
+    );
+
+    const datepicker3 = new te.Datepicker(
+        document.getElementById("date_picker_pj_end_date"),
+        options
+    );
+
+</script>
+
+
+{% endblock js %}

@@ -1,0 +1,237 @@
+{% extends 'base/_base.html' %}
+{% load static %}
+{% load filters %}
+
+{% block title %}
+{{job.title}}
+{% endblock title %}
+
+{% block description %}
+{{job.title}}
+{% endblock description %}
+
+
+{% block css %}
+<style>
+    
+</style>
+{% endblock css %}
+
+{% block content %}
+
+<!-- Container for demo purpose -->
+<div class="bg-white w-full block  lg:flex pt-10  lg:pt-20 pb-10">
+    <div class="lg:w-3/4 px-6">
+        <div class="job-item w-full rounded-xl ">
+            <div class="job-item-header flex justify-between cursor-pointer">
+                <h6 class="text-neutral-800 hover:text-green-700 font-semibold text-2xl lg:text-3xl">{{job.title}}</h6>
+            </div>
+            
+            <hr class="my-6 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
+
+            <div class="job-item-header flex justify-between cursor-pointer mb-3">
+                <h6 class="text-neutral-800 text-xl">仕事の概要</h6>
+            </div>
+
+            <div class="flex items-center flex-wrap text-neutral-600">
+                <div class="flex items-center space-x-1 mr-3 mb-3">
+                    <span class="whitespace-nowrap font-semibold">月額単価</span> <span>:</span> 
+                    {% if job.price_min != job.price_max  %}
+                    <span>{{job.price_min}}万円</span>
+                    <span>〜</span>
+                    <span>{{job.price_max}}万円</span>
+                    {% else %}
+                    <span>{{job.price_min}}万円</span>
+                    {% endif %}
+                </div>
+                <div class="flex items-center space-x-1 mr-3 mb-3">
+                    <span class="whitespace-nowrap font-semibold">作業場所</span> <span>:</span> <span class="whitespace-nowrap">{{job.work_at.name}}</span> <span>/</span> <span class="whitespace-nowrap">{{job.work_type.name}}</span>
+                </div>
+                <div class="flex items-center space-x-1 mr-3 mb-3">
+                    <span class="whitespace-nowrap font-semibold">稼働率</span> <span>:</span> <span class="whitespace-nowrap">{{job.work_hour.name}}</span> 
+                </div>
+            </div>
+            
+            <div class="flex items-center flex-wrap mb-3 text-neutral-600">
+                <div class="flex items-center space-x-1 mr-3 mb-3">
+                    <span class="whitespace-nowrap font-semibold">応募期限</span> 
+                    <span>:</span> 
+                    <span class="whitespace-nowrap">{{job.applicating_until}}</span>
+                </div>
+                <div class="flex items-center space-x-1 mr-3 mb-3">
+                    <span class="whitespace-nowrap font-semibold">契約期間</span> 
+                    <span>:</span> 
+                    <span class="whitespace-nowrap">{{job.pj_start_date}}</span>
+                    <span>~</span> 
+                    <span class="whitespace-nowrap">{{job.pj_end_date}}</span>
+                </div>
+            </div>
+
+            <hr class="mt-6 mb-6 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
+
+            <div class="job-item-header flex justify-between cursor-pointer mb-3">
+                <h6 class="text-neutral-800 text-xl">仕事の詳細</h6>
+            </div>
+            <div class="text-neutral-600 text-lg mb-3 leading-8">
+                {{job.comment |safe}}
+            </div>
+
+
+
+            <hr class="my-6 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
+
+            <div class="job-item-header flex justify-between cursor-pointer mb-3">
+                <h6 class="text-neutral-800 text-xl">スキル</h6>
+            </div>
+
+            <div class=" text-neutral-600 space-x-3 mb-3 text-sm">
+                {% for skill in skills %}
+                    <span class="px-3 py-0.5 bg-slate-200 rounded-full">{{skill.skill.name}}</span>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+    <div class="w-full lg:w-1/4 px-6">
+        {% include 'job/components/job_employer_card.html' %}
+    </div>    
+</div>
+
+{% if job.user.id != user.id and user.user_type == "employee" %}
+    {% if is_bided %}
+        <div class="flex justify-center mt-6">
+            <a href="/messages/employee/{{job.id}}" class="inline-block rounded-full bg-emerald-600 px-6 pb-2 pt-2.5 font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]">
+                この仕事に応募する
+            </a>
+        </div>
+    {% else %}
+        <div class="flex justify-center mt-6">
+            <a href="/proposals/new/{{job.id}}" class="inline-block rounded-full bg-emerald-600 px-6 pb-2 pt-2.5 font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]">
+                この仕事に応募する
+            </a>
+        </div>
+    {% endif %}
+{% endif %}
+
+
+{% if proposals %}
+<div class="px-6">
+        
+    <hr class="my-6 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
+
+    <div class="job-item-header flex justify-between cursor-pointer mb-3">
+        <h6 class="text-neutral-800 text-xl">応募状況</h6>
+    </div>
+
+
+    <div class="flex flex-col overflow-x-auto">
+        <div class="">
+            <div class="inline-block min-w-full py-2">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full text-left">
+                        <thead class="border-b text-neutral-600 dark:border-neutral-500">
+                            <tr>
+                                <th scope="col" class="px-6 py-4  w-10">#</th>
+                                <th scope="col" class="px-6 py-4 whitespace-nowrap">人材情報</th>
+                                <th scope="col" class="px-6 py-4 whitespace-nowrap w-64">希望月額単価</th>
+                                <th scope="col" class="px-6 py-4 whitespace-nowrap w-64">応募日時</th>
+                                <th scope="col" class="px-6 py-4 whitespace-nowrap w-64"></th>
+                                <th scope="col" class="px-6 py-4 whitespace-nowrap w-64">#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for proposal in proposals %}                               
+                                    
+                            <tr class="border-b dark:border-neutral-500 ">
+                                <td class="whitespace-nowrap px-6 py-4 w-10">{{forloop.counter}}</td>
+                                <td class="flex items-center px-6 py-4">
+                                    <img class="block h-[50px] w-[50px] shadow-lg rounded-full mr-3" src="{% static 'uploads/avatars' %}/{{proposal.user.avatar}}" alt="Contact Person" />
+                                    <div class="block">
+                                        <div class="space-x-1 mx-3">
+                                            <span class="whitespace-nowrap uppercase"><a href="/employees/{{proposal.user.id}}" class="hover:text-primary hover:underline" >{{proposal.user.username}}</a></span>
+                                        </div>
+                                        <div class="space-x-1 mx-3">
+                                            (<span class="whitespace-nowrap text-xs">{{proposal.user.employee.role}}</span>)
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="whitespace-nowrap px-6 py-4 w-64">{{proposal.price}}万円</td>
+                                <td class="whitespace-nowrap px-6 py-4 w-64">{{proposal.created_at}}</td>
+                                <td class="whitespace-nowrap px-6 py-4 w-64">
+                                   {% if proposal.status == 1 or proposal.status == 2 %}
+                                        <a href="/messages/employer/{{job.id}}/{{proposal.user.id}}" class="rounded-full px-3 py-1 border-2 border-green-600 text-green-600 cursor-pointer hover:bg-gray-200">
+                                            <i class="fas fa-comments text-green-600"></i>
+                                            今すぐチャット
+                                        </a>
+                                   {% endif %}
+                                </td>
+                                <td class="whitespace-nowrap px-6 py-4 w-64">
+                                    <div class="flex items-center space-x-3">
+                                        {% if proposal.status == 0 %}
+                                            <form method="POST" action="{% url 'set_proposal_status' %}">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="j_id" value="{{job.id}}" />
+                                                <input type="hidden" name="u_id" value="{{proposal.user_id}}" />
+                                                <input type="hidden" name="status" value="1" />
+                                                <button
+                                                    type="submit"
+                                                    class="inline-block rounded-full border-2 border-primary px-6 py-1 font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+                                                    data-te-ripple-init>
+                                                    受付
+                                                </button>
+                                            </form>
+                                        {% endif %}
+                                        {% if proposal.status == 1 %}
+                                            <form method="POST" action="{% url 'set_proposal_status' %}">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="j_id" value="{{job.id}}" />
+                                                <input type="hidden" name="u_id" value="{{proposal.user_id}}" />
+                                                <input type="hidden" name="status" value="2" />
+                                                <button
+                                                    type="submit"
+                                                    class="inline-block rounded-full border-2 border-primary px-6 py-1 font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+                                                    data-te-ripple-init>
+                                                    契約
+                                                </button>
+                                            </form>
+                                        {% endif %}
+                                        {% if proposal.status != 3 %}
+                                            <form method="POST" action="{% url 'set_proposal_status' %}">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="j_id" value="{{job.id}}" />
+                                                <input type="hidden" name="u_id" value="{{proposal.user_id}}" />
+                                                <input type="hidden" name="status" value="3" />
+                                                <button
+                                                    type="submit"
+                                                    class="delete_btn inline-block rounded-full border-2 border-danger px-6 py-1 font-medium uppercase leading-normal text-danger transition duration-150 ease-in-out hover:border-danger-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-danger-600 focus:border-danger-600 focus:text-danger-600 focus:outline-none focus:ring-0 active:border-danger-700 active:text-danger-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+                                                    data-id="{{data.id}}"
+                                                    data-te-ripple-init
+                                                    data-te-ripple-color="light">
+                                                    辞退
+                                                </button>
+                                            </form>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endif %}
+
+<!-- Container for demo purpose -->
+{% endblock content %}
+
+{% block js %}
+<script>
+    
+</script>
+{% endblock js %}

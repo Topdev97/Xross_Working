@@ -1,0 +1,165 @@
+
+{% extends "base/_base.html" %}
+{% load static %}
+
+{% block title %}
+基本的なアカウント情報
+{% endblock title %}
+{% block description %}
+
+{% endblock description %}
+
+
+{% block content %}
+
+<section class="w-full justify-between px-6 md:flex ">
+    <div class=" h-auto hidden  lg:w-1/5  md:block ">
+        {% include 'custom_account/account_sidebar.html' %}
+    </div>
+    <div class="block mb-2 md:hidden">
+        <div class="inline-block">
+            <a href="{% url 'accounts_menu' %}" class="flex text-success items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                </svg>                      
+                戻る
+            </a>
+        </div>    
+        <h2 class="text-center text-lg">
+            基本情報
+        </h2>       
+    </div>
+    <div style="min-height: calc(100vh - 200px)" class="md:ml-2 h-fit w-full  lg:w-4/5 block rounded-lg bg-white p-6  border-neutral-300 border-solid border-2 dark:bg-neutral-700">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {% if form.non_field_errors %}
+                <div class="mb-4 rounded-lg bg-danger-100 px-6 py-5 text-base text-danger-700" role="alert"> 
+                    {{form.non_field_errors}}
+                </div>                
+            {% endif %} 
+
+            <div class="">
+                <div class='text-center mb-4'>
+                    <div class="group relative inline-flex overflow-visible justify-center items-center rounded-full border-gray-300 border-2 border-spacing-4 ">
+                        <img class="rounded-full w-[100px] h-[100px] "
+                            src="{% static 'uploads/avatars/' %}{{user.avatar}}"" alt="avatar" />
+                        <p class="opacity-100 group-hover:opacity-100  absolute cursor-pointer bottom-0 right-0 rounded-full w-6 h-6 bg-green-400 border-2 border-red-50
+                                    hover:border-green-400 transition duration-500 flex justify-center items-center" onclick="onclick_pick_avatar()">
+                                    <i class="fa fa-plus text-white" aria-hidden="true"></i>
+                        </p>
+                    </div>                        
+                    <input class="hidden" id='avatar-picker' type='file' name="avatar" accept="image/*" />
+                </div>
+                <div class=" w-full  grid-cols-2 gap-2 mb-3 grid">
+                    <div >
+                        {% include 'components/input.html' with field=form.first_name %}
+                    </div>
+                    <div>
+                        {% include 'components/input.html' with field=form.last_name %}
+                    </div>
+                </div>
+                <div class=" w-full grid-cols-2 gap-2  grid">
+                    <div>
+                        {% include 'components/input.html' with field=form.first_name_hiragana %}
+                    </div>
+                    <div>
+                        {% include 'components/input.html' with field=form.last_name_hiragana %}
+                    </div>
+                </div>
+
+                <div class="w-full ">
+                    {% include 'components/email_readonly.html' with field=form.email %}
+                </div>
+
+                <div class="w-full ">
+                    {% include 'components/select.html' with field=form.prefecture %}
+                </div>
+
+                <div class="w-full ">
+                    {% include 'components/input.html' with field=form.address %}
+                </div>
+
+                <div class="w-full my-4">
+                    {% include 'components/date-picker.html' with field=form.birthday %}
+                </div>
+                
+                <div class="w-full my-4 ">
+                    {% include 'components/input.html' with field=form.phone %}
+                </div>
+
+                <div class="mt-10 flex justify-end">
+                    <button type="submit" class="inline-block rounded-full min-w-[120px] border-2 border-success py-1.5 px-3  text-md text-success transition duration-150 ease-in-out hover:border-success-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-success-600 focus:border-success-600 focus:text-success-600 focus:outline-none focus:ring-0 active:border-success-700 active:text-success-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10">
+                        更新
+                    </button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+</section>
+
+{% endblock content %}
+
+
+{% block js %}
+
+<script>
+    const options = {
+        format: "yyyy-mm-dd",
+        title: "Datum auswählen",
+        monthsFull: [
+            "Januar",
+            "Februar",
+            "März",
+            "April",
+            "Mai",
+            "Juni",
+            "Juli",
+            "August",
+            "September",
+            "Oktober",
+            "November",
+            "Dezember",
+        ],
+        monthsShort: [
+            "Jan",
+            "Feb",
+            "Mär",
+            "Apr",
+            "Mai",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Okt",
+            "Nov",
+            "Dez",
+        ],
+        weekdaysFull: [
+        "Sonntag",
+        "Montag",
+        "Dienstag",
+        "Mittwoch",
+        "Donnerstag",
+        "Freitag",
+        "Samstag",
+        ],
+        weekdaysShort: ["Son", "Mon", "Die", "Mit", "Don", "Fre", "Sam"],
+        weekdaysNarrow: ["S", "M", "D", "M", "D", "F", "S"],
+        okBtnText: "Ok",
+        clearBtnText: "Klar",
+        cancelBtnText: "Schließen",
+    }
+    const myDatepicker = new te.Datepicker(
+        document.getElementById("date_picker_birthday"),
+        options
+    );
+
+    function onclick_pick_avatar() {
+        document.getElementById('avatar-picker').click();
+    }
+
+</script>
+{% endblock js %}

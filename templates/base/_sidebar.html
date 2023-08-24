@@ -1,0 +1,171 @@
+<div 
+    id="base_side_bar"
+    class="fixed right-0 top-0 z-[1035] h-screen w-60 translate-x-full overflow-hidden bg-white shadow-[0_4px_12px_0_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.05)] data-[te-sidenav-hidden='false']:-translate-x-0 dark:bg-zinc-800"
+    data-te-sidenav-init
+    data-te-sidenav-hidden="true"
+    data-te-sidenav-right="true"
+    data-te-sidenav-width="320"
+    >
+    <div class="w-full fixed flex flex-col top-0 left-0 bg-white h-full border-r">
+      <div class="flex items-center justify-center h-16 md:h-20 border-b">
+        
+      </div>
+      <div class="overflow-y-auto overflow-x-hidden flex-grow">
+        
+        {% if user.is_authenticated %}
+        <ul class="flex flex-col py-4 space-y-1">
+          <li>
+              <a class="block cursor-pointer w-full whitespace-nowrap bg-transparent px-4 py-3 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+                  data-te-dropdown-item-ref>
+                  <div class="uppercase line-clamp-1">{{user.username}} 様</div>
+                  <div class="text-slate-400 text-sm line-clamp-1">{{user.email}}</div>
+                  {% if user.user_type == "employee" %}
+                      <div class="text-slate-400 text-sm line-clamp-1">有料 - {{user.paypoints}}pt  無料 - {{user.points}}pt</div>
+                  {% endif %}
+              </a>
+          </li>
+          <li class="px-5">
+            <div class="flex flex-row items-center h-8">
+              <div class="text-sm font-light tracking-wide text-gray-500">メニュー</div>
+            </div>
+          </li>
+          
+          <li>
+            <a href="{% url 'job_index' %}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+              <span class="inline-flex justify-center items-center ml-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+              </span>
+              <span class="ml-2 text-sm tracking-wide truncate">案件を探す</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'employees' %}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+              <span class="inline-flex justify-center items-center ml-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+              </span>
+              <span class="ml-2 text-sm tracking-wide truncate">人材を探す</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% if user.user_type == 'employer' %}{% url 'job_workspace' %}{% else %}{% url 'employee_messages' %}{% endif %}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+              <span class="inline-flex justify-center items-center ml-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>
+              </span>
+              <span class="ml-2 text-sm tracking-wide truncate">メッセージ</span>
+              
+              {% if request.session.message_count > 0 %}
+                <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-500 bg-green-50 rounded-full">
+                  {{request.session.message_count}}
+                </span>
+              {% endif %}
+            </a>
+          </li>
+          <li class="px-5">
+            <div class="flex flex-row items-center h-8">
+              <div class="text-sm font-light tracking-wide text-gray-500">ログイン</div>
+            </div>
+          </li>
+          <li>
+            <a href="{% url 'accounts_basic_info'%}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+              <span class="inline-flex justify-center items-center ml-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+              </span>
+              <span class="ml-2 text-sm tracking-wide truncate">プロフィール編集</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% if user.user_type == 'employer' %}/employers/{{user.id}}{% else %}/employees/{{user.id}}{% endif %}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+              <span class="inline-flex justify-center items-center ml-4">
+                <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M7.99998 3H8.99998C7.04998 8.84 7.04998 15.16 8.99998 21H7.99998" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M15 3C16.95 8.84 16.95 15.16 15 21" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M3 16V15C8.84 16.95 15.16 16.95 21 15V16" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M3 9.0001C8.84 7.0501 15.16 7.0501 21 9.0001" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+              </span>
+              <span class="ml-2 text-sm tracking-wide truncate">公開ページ</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'guide' %}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+              <span class="inline-flex justify-center items-center ml-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+              </span>
+              <span class="ml-2 text-sm tracking-wide truncate">利用ガイド</span>
+            </a>
+          </li>
+          <li>
+            
+            <form action="{% url 'account_logout' %}" method="POST">
+              {% csrf_token %}
+              
+              <button type="submit" class="w-full relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                <span class="inline-flex justify-center items-center ml-4">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                </span>
+                <span class="ml-2 text-sm tracking-wide truncate">ログアウト</span>
+              </button>
+            </form>
+          </li>
+        </ul>
+        {% else %}
+        <ul class="flex flex-col py-4 space-y-1">
+         
+          <li class="px-5">
+            <div class="flex flex-row items-center h-8">
+              <div class="text-sm font-light tracking-wide text-gray-500">メニュー</div>
+            </div>
+          </li>
+          
+          <li>
+            <a href="{% url 'job_index' %}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+              <span class="inline-flex justify-center items-center ml-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+              </span>
+              <span class="ml-2 text-sm tracking-wide truncate">案件を探す</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'employees' %}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+              <span class="inline-flex justify-center items-center ml-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+              </span>
+              <span class="ml-2 text-sm tracking-wide truncate">人材を探す</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'guide' %}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+              <span class="inline-flex justify-center items-center ml-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+              </span>
+              <span class="ml-2 text-sm tracking-wide truncate">利用ガイド</span>
+            </a>
+          </li>
+          <li class="px-5">
+            <div class="flex flex-row items-center h-8">
+              <div class="text-sm font-light tracking-wide text-gray-500">ログイン</div>
+            </div>
+          </li>
+          <li>
+            <a href="{% url 'account_login' %}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+              <span class="inline-flex justify-center items-center ml-4">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M13 2C10.2386 2 8 4.23858 8 7C8 7.55228 8.44772 8 9 8C9.55228 8 10 7.55228 10 7C10 5.34315 11.3431 4 13 4H17C18.6569 4 20 5.34315 20 7V17C20 18.6569 18.6569 20 17 20H13C11.3431 20 10 18.6569 10 17C10 16.4477 9.55228 16 9 16C8.44772 16 8 16.4477 8 17C8 19.7614 10.2386 22 13 22H17C19.7614 22 22 19.7614 22 17V7C22 4.23858 19.7614 2 17 2H13Z" fill="#000000"></path> <path d="M3 11C2.44772 11 2 11.4477 2 12C2 12.5523 2.44772 13 3 13H11.2821C11.1931 13.1098 11.1078 13.2163 11.0271 13.318C10.7816 13.6277 10.5738 13.8996 10.427 14.0945C10.3536 14.1921 10.2952 14.2705 10.255 14.3251L10.2084 14.3884L10.1959 14.4055L10.1915 14.4115C10.1914 14.4116 10.191 14.4122 11 15L10.1915 14.4115C9.86687 14.8583 9.96541 15.4844 10.4122 15.809C10.859 16.1336 11.4843 16.0346 11.809 15.5879L11.8118 15.584L11.822 15.57L11.8638 15.5132C11.9007 15.4632 11.9553 15.3897 12.0247 15.2975C12.1637 15.113 12.3612 14.8546 12.5942 14.5606C13.0655 13.9663 13.6623 13.2519 14.2071 12.7071L14.9142 12L14.2071 11.2929C13.6623 10.7481 13.0655 10.0337 12.5942 9.43937C12.3612 9.14542 12.1637 8.88702 12.0247 8.7025C11.9553 8.61033 11.9007 8.53682 11.8638 8.48679L11.822 8.43002L11.8118 8.41602L11.8095 8.41281C11.4848 7.96606 10.859 7.86637 10.4122 8.19098C9.96541 8.51561 9.86636 9.14098 10.191 9.58778L11 9C10.191 9.58778 10.1909 9.58773 10.191 9.58778L10.1925 9.58985L10.1959 9.59454L10.2084 9.61162L10.255 9.67492C10.2952 9.72946 10.3536 9.80795 10.427 9.90549C10.5738 10.1004 10.7816 10.3723 11.0271 10.682C11.1078 10.7837 11.1931 10.8902 11.2821 11H3Z" fill="#000000"></path> </g></svg>
+              </span>
+              <span class="ml-2 text-sm tracking-wide truncate">ログイン</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'account_signup' %}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+              <span class="inline-flex justify-center items-center ml-4">
+                <svg class="w-5 h-5" fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 461.759 461.759" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M0,301.058h147.916v147.919H0V301.058z M194.432,448.977H342.35V301.058H194.432V448.977z M2.802,257.347h147.916V109.434 H2.802V257.347z M325.476,92.219l-51.603-79.437l-79.441,51.601l51.604,79.437L325.476,92.219z M219.337,213.733l71.045,62.663 l62.66-71.039l-71.044-62.669L219.337,213.733z M412.107,57.967l-80.668,49.656l49.652,80.666l80.668-49.65L412.107,57.967z"></path> </g> </g></svg>
+              </span>
+              <span class="ml-2 text-sm tracking-wide truncate">会員登録（無料）</span>
+            </a>
+          </li>
+        </ul>
+
+        {% endif %}
+      </div>
+    </div>
+  </div>

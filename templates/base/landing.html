@@ -1,0 +1,171 @@
+{% extends 'base/_base.html' %}
+{% load static %}
+
+{% block title %}
+仕事依頼・求人情報は日本最大級
+{% endblock title %}
+{% block description %}
+
+{% endblock description %}
+
+
+{% block css %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+<style>
+	.title{
+		font-size: 60px;
+	}
+	#outline::after{
+		content:'';
+		position:absolute;
+		border:2px solid #193f8a;
+		background:transparent;
+		width:110%;
+		height:130%;
+		left:50%;
+		top:50%;
+		transform:translate(-50%,-50%);
+		border-radius:8px;
+	}
+</style>
+{% endblock css %}
+
+{% block content %}
+<div>
+	<div class="mt-[115px] flex justify-between items-center">
+		<div>
+			<h1 class="title mb-6">キャッチコピー</h1>
+			<p class="text-2xl">ここにテキストが入ります</p>
+			<p class="text-2xl mb-[90px]">(サブタイトルや簡単な説明など)</p>
+			<div class="flex flex-col">
+				<button type="button" class="text-blue-800 bg-gradient-to-t from-gray-200 via-white to-gray-200 font-medium rounded-full text-lg py-2.5 text-center mr-2 mb-[30px] border-2 border-blue-800" style="width:340px">資料DL/ログイン</button>
+				<button type="button" class="text-blue-800 bg-gradient-to-t from-gray-200 via-white to-gray-200 font-medium rounded-full text-lg py-2.5 text-center mr-2 border-2 border-blue-800" style="width:340px">無料会員登録</button>
+			</div>
+		</div>
+		<img src="{% static '/images/dashboard.png' %}" alt="My image">
+	</div>
+
+	<div class="mt-[115px] flex justify-center relative items-center">
+		<h1 class="" style="font-size: 120px; color: #787272;">Mission</h1>
+		<div class="absolute" style="top:100px;">
+			<p class="text-xl leading-[40px]">ここにテキストが入りますここにテキストが入りますここにテキストが入りますここにテキストが入ります</p>
+			<p class="text-xl leading-[40px]">ここにテキストが入りますここにテキストが入りますここにテキストが入りますここにテキストが入ります</p>
+			<p class="text-xl leading-[40px]">ここにテキストが入りますここにテキストが入りますここにテキストが入りますここにテキストが入ります</p>
+			<p class="text-xl leading-[40px]">ここにテキストが入りますここにテキストが入りますここにテキストが入りますここにテキストが入ります</p>
+		</div>
+
+	</div>
+	<div class="mt-[115px] flex flex-col">
+		<h1 class="" style="font-size: 72px;">サービス</h1>
+		<div class="grid grid-cols-2 mt-[60px] place-items-center gap-y-[130px]">
+			<div class="items-center flex flex-col min-w-[305px]" style="max-width:305px">
+				<img src="{% static '/images/img1.png' %}" alt="My image">
+				<p >ここにテキストが入りますここにテキストが入りますここにテキストが入りますここにテキストが入りますここにテキストが入</p>
+			</div>
+			<div class="items-center flex flex-col min-w-[305px]" style="max-width:305px">
+				<img src="{% static '/images/img2.png' %}" alt="My image">
+				<p >ここにテキストが入りますここにテキストが入りますここにテキストが入りますここにテキストが入りますここにテキストが入</p>
+			</div>
+			<div class="items-center flex flex-col min-w-[305px]" style="max-width:305px">
+				<img src="{% static '/images/img1.png' %}" alt="My image">
+				<p >ここにテキストが入りますここにテキストが入りますここにテキストが入りますここにテキストが入りますここにテキストが入</p>
+			</div>
+			<div class="items-center flex flex-col min-w-[305px]" style="max-width:305px">
+				<img src="{% static '/images/img2.png' %}" alt="My image">
+				<p >ここにテキストが入りますここにテキストが入りますここにテキストが入りますここにテキストが入りますここにテキストが入</p>
+			</div>
+		</div>
+	</div>
+	<div class="mt-[135px] flex flex-col">
+		<h1 class="" style="font-size: 72px;">利用の流れ</h1>
+		<div class=" mt-[90px] flex flex-row justify-around px-10">
+			<div class="items-center relative">
+				<img src="{% static '/images/card.png' %}" alt="card image">
+				<p class="absolute bottom-5 z-10 max-w-[200px] min-w-[200px] left-[50%] transform translate-x-[-50%]">ここにテキストが入ります ここにテキストが入ります ここにテキストが入ります</p>
+			</div>
+			<div class="items-center relative">
+				<img src="{% static '/images/card.png' %}" alt="card image">
+				<p class="absolute bottom-5 z-10 max-w-[200px] min-w-[200px] left-[50%] transform translate-x-[-50%]">ここにテキストが入ります ここにテキストが入ります ここにテキストが入ります</p>
+			</div>
+			<div class="items-center relative">
+				<img src="{% static '/images/card.png' %}" alt="card image">
+				<p class="absolute bottom-5 z-10 max-w-[200px] min-w-[200px] left-[50%] transform translate-x-[-50%]">ここにテキストが入ります ここにテキストが入ります ここにテキストが入ります</p>
+			</div>
+		</div>
+		<div class="mt-[100px] flex flex-col items-center">
+			<button type="button" class="text-blue-800 bg-gradient-to-t from-gray-200 via-white to-gray-200 font-medium rounded-full text-lg py-2.5 text-center mr-2 mb-[30px] border-2 border-blue-800" style="width:340px">資料DL/ログイン</button>
+			<button type="button" class="text-blue-800 bg-gradient-to-t from-gray-200 via-white to-gray-200 font-medium rounded-full text-lg py-2.5 text-center mr-2 border-2 border-blue-800" style="width:340px">無料会員登録</button>
+		</div>
+	</div>
+	<div class="mt-[135px] flex flex-col items-center">
+		<h1 class="text-4xl">導入事例</h1>
+		<div class="mt-[90px] flex flex-row justify-around w-full px-10">
+			<div class="items-center relative">
+				<img src="{% static '/images/card_item.png' %}" alt="card_item image">
+				<p class="absolute bottom-5 z-10 max-w-[200px] min-w-[200px] left-[50%] transform translate-x-[-50%]">
+					<span class="text-lg block mb-4">Aさん</span>
+					ここにテキストが入ります ここにテキストが入ります ここにテキストが入ります</p>
+			</div>
+			<div class="items-center relative">
+				<img src="{% static '/images/card_item.png' %}" alt="card_item image">
+				<p class="absolute bottom-5 z-10 max-w-[200px] min-w-[200px] left-[50%] transform translate-x-[-50%]">
+					<span class="text-lg block mb-4">Bさん</span>
+					ここにテキストが入ります ここにテキストが入ります ここにテキストが入ります</p>
+			</div>
+			<div class="items-center relative">
+				<img src="{% static '/images/card_item.png' %}" alt="card image">
+				<p class="absolute bottom-5 z-10 max-w-[200px] min-w-[200px] left-[50%] transform translate-x-[-50%]">
+					<span class="text-lg block mb-4">Cさん</span>
+					ここにテキストが入ります ここにテキストが入ります ここにテキストが入ります</p>
+			</div>
+		</div>
+		<div class="grid grid-cols-4 mt-16 gap-x-[120px] gap-y-[35px]">
+			<button type="button" class="bg-gray-500 font-medium rounded-full text-lg py-2.5 text-center w-40 h-11"></button>
+			<button type="button" class="bg-gray-500 font-medium rounded-full text-lg py-2.5 text-center w-40 h-11"></button>
+			<button type="button" class="bg-gray-500 font-medium rounded-full text-lg py-2.5 text-center w-40 h-11"></button>
+			<button type="button" class="bg-gray-500 font-medium rounded-full text-lg py-2.5 text-center w-40 h-11"></button>
+			<button type="button" class="bg-gray-500 font-medium rounded-full text-lg py-2.5 text-center w-40 h-11"></button>
+			<button type="button" class="bg-gray-500 font-medium rounded-full text-lg py-2.5 text-center w-40 h-11"></button>
+			<button type="button" class="bg-gray-500 font-medium rounded-full text-lg py-2.5 text-center w-40 h-11"></button>
+			<button type="button" class="bg-gray-500 font-medium rounded-full text-lg py-2.5 text-center w-40 h-11"></button>
+			<button type="button" class="bg-gray-500 font-medium rounded-full text-lg py-2.5 text-center w-40 h-11"></button>
+			<button type="button" class="bg-gray-500 font-medium rounded-full text-lg py-2.5 text-center w-40 h-11"></button>
+			<button type="button" class="bg-gray-500 font-medium rounded-full text-lg py-2.5 text-center w-40 h-11"></button>
+			<button type="button" class="bg-gray-500 font-medium rounded-full text-lg py-2.5 text-center w-40 h-11"></button>
+		</div>
+	</div>
+	<div class="mt-[165px] flex flex-col">
+		<h1 class="text-7xl">お知らせ</h1>
+		<div class="mt-16">
+			<div class="flex flex-row items-center justify-center text-gray-800 mb-14">
+				<img src="{% static 'images/line.svg' alt="line" %}"/>
+				<p class="ml-3 text-2xl">2023<b class="text-4xl block">05.01</b></p>
+				<p class="ml-24 text-lg">お知らせタイトルお知らせタイトルお知らせタイトルお知らせタイトル</p>
+			</div>
+			<div class="flex flex-row items-center justify-center text-gray-800 mb-14">
+				<img src="{% static 'images/line.svg' alt="line" %}"/>
+				<p class="ml-3 text-2xl">2023<b class="text-4xl block">05.01</b></p>
+				<p class="ml-24 text-lg">お知らせタイトルお知らせタイトルお知らせタイトルお知らせタイトル</p>
+			</div>
+			<div class="flex flex-row items-center justify-center text-gray-800 mb-14">
+				<img src="{% static 'images/line.svg' alt="line" %}"/>
+				<p class="ml-3 text-2xl">2023<b class="text-4xl block">05.01</b></p>
+				<p class="ml-24 text-lg">お知らせタイトルお知らせタイトルお知らせタイトルお知らせタイトル</p>
+			</div>
+		</div>
+		<button type="button" class="relative ml-auto text-white bg-gradient-to-r from-[#2662b7] via-[#578cbd] to-[#88b6ce] font-medium rounded-lg text-lg py-2.5 text-center " style="width:212px" id="outline">お知らせ一覧&nbsp&nbsp&nbsp&nbsp></button>
+	</div>
+	<div class="mt-[170px]">
+
+	</div>
+</div>
+
+{% endblock content %}
+
+{% block js %}
+<script>
+	$(document).ready(function(){
+
+	})
+</script>
+{% endblock js %}

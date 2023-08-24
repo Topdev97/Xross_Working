@@ -1,0 +1,12 @@
+
+<div class="relative mb-3" >
+    <select data-te-select-init multiple data-te-select-filter="true"
+        id="multi_select_{{field.name}}"   
+        name = "{{field.name}}" 
+        value = "{% if field.value == None %}{% else %}{{field.value}}{% endif %}">
+
+        {% for sub_field in field %}
+            {{sub_field.tag}}
+        {% endfor %}
+    </select>
+</div>
